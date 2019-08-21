@@ -6,19 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://lemon9610.github.io">
-  <title>Tag: 学习笔记 | Lemon</title>
+  <title>ehcache、memcache、redis三大缓存比较 | Lemon</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="能吃且有趣的灵魂">
-<meta name="keywords" content="外焦里嫩">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Lemon">
-<meta property="og:url" content="https://lemon9610.github.io/tags/学习笔记/index.html">
+  <meta name="description" content="主要内容：项目中使用到将查询的数据缓存，来提高响应速度。整理对比了常见的三种缓存。">
+<meta name="keywords" content="学习笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ehcache、memcache、redis三大缓存比较">
+<meta property="og:url" content="https://lemon9610.github.io/2019/08/12/ehcache、memcache、redis三大缓存比较/index.html">
 <meta property="og:site_name" content="Lemon">
-<meta property="og:description" content="能吃且有趣的灵魂">
+<meta property="og:description" content="主要内容：项目中使用到将查询的数据缓存，来提高响应速度。整理对比了常见的三种缓存。">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-08-21T10:13:43.720Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Lemon">
-<meta name="twitter:description" content="能吃且有趣的灵魂">
+<meta name="twitter:title" content="ehcache、memcache、redis三大缓存比较">
+<meta name="twitter:description" content="主要内容：项目中使用到将查询的数据缓存，来提高响应速度。整理对比了常见的三种缓存。">
   
     <link rel="alternative" href="/atom.xml" title="Lemon" type="application/atom+xml">
   
@@ -166,204 +167,117 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-ehcache、memcache、redis三大缓存比较" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/20/JVM类加载机制/" class="archive-article-date">
-  	<time datetime="2019-08-20T05:35:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-20</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        <center><p>
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/20/JVM类加载机制/">JVM类加载机制</a>
+    <h1 class="article-title_code_ant" itemprop="name">
+      ehcache、memcache、redis三大缓存比较
     </h1>
   
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">JVM</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/18/Zookeeper一揽子计划（三）/" class="archive-article-date">
-  	<time datetime="2019-08-18T05:35:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-18</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/18/Zookeeper一揽子计划（三）/">Zookeeper一揽子计划（三）</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Zookeeper</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/16/Zookeeper一揽子计划（二）/" class="archive-article-date">
-  	<time datetime="2019-08-16T05:35:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/16/Zookeeper一揽子计划（二）/">Zookeeper一揽子计划（二）</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Zookeeper</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/14/Zookeeper一揽子计划（一）/" class="archive-article-date">
-  	<time datetime="2019-08-14T05:35:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-14</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/14/Zookeeper一揽子计划（一）/">Zookeeper一揽子计划（一）</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Zookeeper</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/12/CAP原理/" class="archive-article-date">
+</p></center>
+        
+        <a href="/2019/08/12/ehcache、memcache、redis三大缓存比较/" class="archive-article-date">
   	<time datetime="2019-08-12T05:35:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-12</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/12/CAP原理/">CAP原则介绍</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="主要内容："><a href="#主要内容：" class="headerlink" title="主要内容："></a>主要内容：</h4><p>项目中使用到将查询的数据缓存，来提高响应速度。整理对比了常见的三种缓存。</p>
+<a id="more"></a>
 
-        <div class="article-info info-on-right">
-          
+<h1 id="ehcache、memcache、redis三大缓存比较"><a href="#ehcache、memcache、redis三大缓存比较" class="headerlink" title="ehcache、memcache、redis三大缓存比较"></a>ehcache、memcache、redis三大缓存比较</h1><h2 id="Ehcache介绍"><a href="#Ehcache介绍" class="headerlink" title="Ehcache介绍"></a>Ehcache介绍</h2><p>EhCache 是一个纯Java的进程内缓存框架，具有快速、精干等特点。是一种广泛使用的开源Java分布式缓存。主要面向通用缓存,Java EE和轻量级容器。另外Spring 提供了对缓存功能的抽象：即允许绑定不同的缓存解决方案（如Ehcache），但本身不直接提供缓存功能的实现。它支持注解方式使用缓存，非常方便。</p>
+<h2 id="Ehcache的特点"><a href="#Ehcache的特点" class="headerlink" title="Ehcache的特点"></a>Ehcache的特点</h2><p>（1）快速简单，具有多种缓存策略</p>
+<p>（2）缓存数据有两级为内存和磁盘，<strong>缓存数据会在虚拟机重启的过程中写入磁盘</strong></p>
+<p>（3）可以通过RMI、可插入API等方式进行分布式缓存</p>
+<p>（4）具有缓存和缓存管理器的侦听接口</p>
+<p>（5）支持多缓存管理器实例，以及一个实例的多个缓存区域。并提供Hibernate的缓存实现</p>
+<h2 id="Redis介绍"><a href="#Redis介绍" class="headerlink" title="Redis介绍"></a>Redis介绍</h2><p>Redis是一个开源的使用ANSI C语言编写、支持网络、可基于内存亦可持久化的日志型、Key-Value数据库，并提供多种语言的API。Redis是一个key-value存储系统。它支持存储的value类型很多，包括string(字符串)、list(链表)、set(集合)、zset(sorted set –有序集合)和hash（哈希类型）。这些数据类型都支持push/pop、add/remove及取交集并集和差集及更丰富的操作，而且这些操作都是原子性的。Redis数据都是缓存在内存中。Redis会周期性的把更新的数据写入磁盘或者把修改操作写入追加的记录文件，并且在此基础上实现了master-slave(主从)同步。</p>
+<h2 id="Redis的特点"><a href="#Redis的特点" class="headerlink" title="Redis的特点"></a>Redis的特点</h2><p>（1）速度快，持久化。并且Redis的所有数据都存储在内存中。</p>
+<p>（2）支持多种数据结构例：String、List、Set、Hash、Zset</p>
+<p>（3）支持多种编程语言例：Java、php、Python、Ruby、Lua、Node.js</p>
+<p>（4）功能丰富 ，除了支持五种数据结构之外，还支持事务、流水线、发布/订阅、消息队列等功能。</p>
+<p>（5）主服务器（master）执行添加、修改、删除，从服务器执行查询。</p>
+<h2 id="memcache介绍"><a href="#memcache介绍" class="headerlink" title="memcache介绍"></a>memcache介绍</h2><p>memcache 是一种高性能、分布式对象缓存系统，最初设计于缓解动态网站数据库加载数据的延迟性，你可以把它想象成一个大的内存HashTable，就是一个key-value键值缓存。</p>
+<h2 id="memcache的特点"><a href="#memcache的特点" class="headerlink" title="memcache的特点"></a>memcache的特点</h2><p>（1）多线程支持。memcache支持多个cpu同时工作，在memcache安装文件下有个叫threads.txt中特别说明，By default, memcached is compiled as a single-threaded application.默认是单线程编译安装，如果你需要多线程则需要修改./configure –enable-threads，为了支持多核系统，前提是你的系统必须具有多线程工作模式。开启多线程工作的线程数默认是4，如果线程数超过cpu数 容易发生操作死锁的概率。结合自己业务模式选择才能做到物尽其用。</p>
+<p>（2）高性能。通过libevent完成socket 的通讯，理论上性能的瓶颈落在网卡上。</p>
+<h2 id="比较："><a href="#比较：" class="headerlink" title="比较："></a>比较：</h2><h3 id="1-Ehcache-和-Redis-比较"><a href="#1-Ehcache-和-Redis-比较" class="headerlink" title="1 Ehcache 和 Redis 比较"></a>1 Ehcache 和 Redis 比较</h3><table>
+<thead>
+<tr>
+<th></th>
+<th align="center">Ehcache</th>
+<th align="center">Redis</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>存取速度</td>
+<td align="center">Ehcache直接在jvm虚拟机中缓存，速度快，效率高</td>
+<td align="center">Redis是通过socket访问到缓存服务，效率比ecache低</td>
+</tr>
+<tr>
+<td>集群和分布式</td>
+<td align="center">Ehcache有缓存共享方案，不过是通过RMI或者Jgroup多播方式进行广播缓存通知更新，缓存共享复杂，维护不方便；简单的共享可以，但是涉及到缓存恢复，大数据缓存，则不合适。</td>
+<td align="center">Redis有成熟的分布式解决方案。适合大规模分布式集群部署。</td>
+</tr>
+<tr>
+<td>操作复杂度</td>
+<td align="center">Ehcache提供的接口非常简单明了，从Ehcache的搭建到运用运行仅仅需要的是你宝贵的几分钟。其实很多开发者都不知道自己用在用Ehcache，Ehcache被广泛的运用于其他的开源项目。比如：Hibernate</td>
+<td align="center">至少需要安装服务端和客户端才能使用。操作略比Ehcache复杂一些。</td>
+</tr>
+</tbody></table>
+<h3 id="2-Redis与Memcached的比较"><a href="#2-Redis与Memcached的比较" class="headerlink" title="2 Redis与Memcached的比较"></a>2 Redis与Memcached的比较</h3><p>1、Redis和Memcache都是将数据存放在内存中，都是内存数据库。不过memcache还可用于缓存其他东西，例如图片、视频等等，而Redis，并不是所有的数据都一直存储在内存中的。<br>2、Redis不仅仅支持简单的k/v类型的数据，同时还提供list，set，hash等数据结构的存储。<br>3、虚拟内存–Redis当物理内存用完时，可以将一些很久没用到的value 交换到磁盘<br>4、过期策略–memcache在set时就指定，例如set key1008,即永不过期。Redis可以通过例如expire 设定，例如expire name 10<br>5、分布式–设定memcache集群，利用magent做一主多从;redis可以做一主多从。都可以一主一从<br>6、存储数据安全–memcache挂掉后，数据没了；redis可以定期保存到磁盘（持久化），重启的时候可以再次加载进行使用。<br>7、灾难恢复–memcache挂掉后，数据不可恢复; redis数据丢失后可以通过aof恢复<br>8、Redis支持数据的备份，即master-slave模式的数据备份</p>
+<p><strong>网络IO模型</strong><br>​    Memcached是多线程，非阻塞IO复用的网络模型，分为监听主线程和worker子线程，监听线程监听网络连接，接受请求后，将连接描述字pipe 传递给worker线程，进行读写IO, 网络层使用libevent封装的事件库，多线程模型可以发挥多核作用，但是引入了cache coherency和锁的问题，比如，Memcached最常用的stats 命令，实际Memcached所有操作都要对这个全局变量加锁，进行计数等工作，带来了性能损耗。</p>
+<p>​    Redis使用单线程的IO复用模型，自己封装了一个简单的AeEvent事件处理框架，主要实现了epoll、kqueue和select，对于单纯只有IO操作来说，单线程可以将速度优势发挥到最大，但是Redis也提供了一些简单的计算功能，比如排序、聚合等，对于这些操作，单线程模型实际会严重影响整体吞吐量，CPU计算过程中，整个IO调度都是被阻塞住的。</p>
+<p><strong>内存管理方面</strong><br>​    Memcached使用预分配的内存池的方式，使用slab和大小不同的chunk来管理内存，Item根据大小选择合适的chunk存储，内存池的方式可以省去申请/释放内存的开销，并且能减小内存碎片产生，但这种方式也会带来一定程度上的空间浪费，并且在内存仍然有很大空间时，新的数据也可能会被剔除。</p>
+<p>​    Redis使用现场申请内存的方式来存储数据，并且很少使用free-list等方式来优化内存分配，会在一定程度上存在内存碎片，Redis跟据存储命令参数，会把带过期时间的数据单独存放在一起，并把它们称为临时数据，非临时数据是永远不会被剔除的，即便物理内存不够，导致swap也不会剔除任何非临时数据（但会尝试剔除部分临时数据），这点上Redis更适合作为存储而不是cache。</p>
+<p><strong>数据一致性问题</strong><br>​    Memcached提供了cas命令，可以保证多个并发访问操作同一份数据的一致性问题。 Redis没有提供cas 命令，并不能保证这点，不过Redis提供了事务的功能，可以保证一串命令的原子性，中间不会被任何操作打断。</p>
+<p><strong>存储方式及其它方面</strong><br>Memcached基本只支持简单的key-value存储，不支持枚举，<strong>不支持持久化和复制等功能</strong></p>
+<p>Redis除key/value之外，还支持list,set,sorted set,hash等众多数据结构，提供了KEYS</p>
+<p><strong>关于不同语言的客户端支持</strong><br>​    在不同语言的客户端方面，Memcached和Redis都有丰富的第三方客户端可供选择，不过因为Memcached发展的时间更久一些，目前看在客户端支持方面，Memcached的很多客户端更加成熟稳定，而Redis由于其协议本身就比Memcached复杂，加上作者不断增加新的功能等，对应第三方客户端跟进速度可能会赶不上，有时可能需要自己在第三方客户端基础上做些修改才能更好的使用。</p>
+<p>​    根据以上比较不难看出，当我们不希望数据被踢出，或者需要除key/value之外的更多数据类型时，或者需要落地功能时，使用Redis比使用Memcached更合适。</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>感谢老铁请我恰鸡腿<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/wepay.jpg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -375,213 +289,169 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://lemon9610.github.io/2019/08/12/ehcache、memcache、redis三大缓存比较/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/12/ehcache、memcache、redis三大缓存比较/" class="archive-article-date">
-  	<time datetime="2019-08-12T05:35:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-12</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2019/08/14/Zookeeper一揽子计划（一）/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Zookeeper一揽子计划（一）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/08/12/CAP原理/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">CAP原则介绍</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/12/ehcache、memcache、redis三大缓存比较/">ehcache、memcache、redis三大缓存比较</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#主要内容："><span class="toc-number">1.</span> <span class="toc-text">主要内容：</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ehcache、memcache、redis三大缓存比较"><span class="toc-number"></span> <span class="toc-text">ehcache、memcache、redis三大缓存比较</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Ehcache介绍"><span class="toc-number"></span> <span class="toc-text">Ehcache介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Ehcache的特点"><span class="toc-number"></span> <span class="toc-text">Ehcache的特点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Redis介绍"><span class="toc-number"></span> <span class="toc-text">Redis介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Redis的特点"><span class="toc-number"></span> <span class="toc-text">Redis的特点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#memcache介绍"><span class="toc-number"></span> <span class="toc-text">memcache介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#memcache的特点"><span class="toc-number"></span> <span class="toc-text">memcache的特点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#比较："><span class="toc-number"></span> <span class="toc-text">比较：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Ehcache-和-Redis-比较"><span class="toc-number"></span> <span class="toc-text">1 Ehcache 和 Redis 比较</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Redis与Memcached的比较"><span class="toc-number"></span> <span class="toc-text">2 Redis与Memcached的比较</span></a>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/12/JavaWeb获取客户端IP，MAC脱坑/" class="archive-article-date">
-  	<time datetime="2019-08-11T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-12</time>
-</a>
-        </div>
-    	 
+  <div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="ehcache、memcache、redis三大缓存比较" data-title="ehcache、memcache、redis三大缓存比较" data-url="https://lemon9610.github.io/2019/08/12/ehcache、memcache、redis三大缓存比较/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/12/JavaWeb获取客户端IP，MAC脱坑/">JavaWeb获取客户端IP，MAC脱坑</a>
-    </h1>
+  
+  
+  <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+<script>
+  var cloudTieConfig = {
+    url: "https://lemon9610.github.io/2019/08/12/ehcache、memcache、redis三大缓存比较/", 
+    sourceId: "ehcache、memcache、redis三大缓存比较",
+    productKey: "true",
+    target: "cloud-tie-wrapper"
+  };
+</script>
+<script src="//img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/11/AOP切面编程复习/" class="archive-article-date">
-  	<time datetime="2019-08-11T05:35:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/11/AOP切面编程复习/">AOP切面编程复习</a>
-    </h1>
+  <div id="SOHUCS" sid="ehcache、memcache、redis三大缓存比较" ></div> 
+<script charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/changyan.js" ></script>
+<script type="text/javascript">
+    window.changyan.api.config({
+        appid: "true",
+        conf: "true"
+    });
+</script>
+</script>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/10/VUE学习笔记/" class="archive-article-date">
-  	<time datetime="2019-08-10T05:35:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-10</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/10/VUE学习笔记/">VUE学习笔记</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">vue</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/09/网络数据传输/" class="archive-article-date">
-  	<time datetime="2019-08-09T05:35:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/09/网络数据传输/">网络数据传输</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -609,9 +479,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,

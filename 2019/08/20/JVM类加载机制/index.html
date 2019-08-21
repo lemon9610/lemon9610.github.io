@@ -6,19 +6,24 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://lemon9610.github.io">
-  <title>Tag: 学习笔记 | Lemon</title>
+  <title>JVM类加载机制 | Lemon</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="能吃且有趣的灵魂">
-<meta name="keywords" content="外焦里嫩">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Lemon">
-<meta property="og:url" content="https://lemon9610.github.io/tags/学习笔记/index.html">
+  <meta name="description" content="主要内容：整理的JVM类加载机制。">
+<meta name="keywords" content="学习笔记,JVM">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JVM类加载机制">
+<meta property="og:url" content="https://lemon9610.github.io/2019/08/20/JVM类加载机制/index.html">
 <meta property="og:site_name" content="Lemon">
-<meta property="og:description" content="能吃且有趣的灵魂">
+<meta property="og:description" content="主要内容：整理的JVM类加载机制。">
 <meta property="og:locale" content="en">
+<meta property="og:image" content="https://lemon9610.github.io/assets/bkimg/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%9B%BE.png">
+<meta property="og:image" content="https://lemon9610.github.io/assets/bkimg/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8%E5%9B%BE.png">
+<meta property="og:image" content="https://lemon9610.github.io/assets/bkimg/tomcat%E7%B1%BB%E5%8A%A0%E8%BD%BD.png">
+<meta property="og:updated_time" content="2019-08-21T10:40:12.921Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Lemon">
-<meta name="twitter:description" content="能吃且有趣的灵魂">
+<meta name="twitter:title" content="JVM类加载机制">
+<meta name="twitter:description" content="主要内容：整理的JVM类加载机制。">
+<meta name="twitter:image" content="https://lemon9610.github.io/assets/bkimg/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%9B%BE.png">
   
     <link rel="alternative" href="/atom.xml" title="Lemon" type="application/atom+xml">
   
@@ -166,36 +171,146 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-JVM类加载机制" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/20/JVM类加载机制/" class="archive-article-date">
-  	<time datetime="2019-08-20T05:35:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-20</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        <center><p>
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/20/JVM类加载机制/">JVM类加载机制</a>
+    <h1 class="article-title_code_ant" itemprop="name">
+      JVM类加载机制
     </h1>
   
+</p></center>
+        
+        <a href="/2019/08/20/JVM类加载机制/" class="archive-article-date">
+  	<time datetime="2019-08-20T05:35:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-20</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="主要内容："><a href="#主要内容：" class="headerlink" title="主要内容："></a>主要内容：</h4><p>整理的JVM类加载机制。</p>
+<a id="more"></a>
 
-        <div class="article-info info-on-right">
-          
+<h1 id="JVM类加载机制"><a href="#JVM类加载机制" class="headerlink" title="JVM类加载机制"></a>JVM类加载机制</h1><p>看到一篇很好的关于类加载博文，记录一下。</p>
+<p>博文连接：<a href="https://blog.csdn.net/noaman_wgs/article/details/74489549" target="_blank" rel="noopener">https://blog.csdn.net/noaman_wgs/article/details/74489549</a></p>
+<p>​           <a href="https://blog.csdn.net/dd864140130/article/details/49817357" target="_blank" rel="noopener">https://blog.csdn.net/dd864140130/article/details/49817357</a></p>
+<h2 id="引出类加载"><a href="#引出类加载" class="headerlink" title="引出类加载"></a>引出类加载</h2><p>这里有一道题目：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Singleton</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Singleton singleton = <span class="keyword">new</span> Singleton();</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> value1;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> value2 = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span></span>&#123;</span><br><span class="line">        value1++;</span><br><span class="line">        value2++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> singleton;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Singleton2</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> value1;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> value2 = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Singleton2 singleton2 = <span class="keyword">new</span> Singleton2();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton2</span><span class="params">()</span></span>&#123;</span><br><span class="line">        value1++;</span><br><span class="line">        value2++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton2 <span class="title">getInstance2</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> singleton2;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Singleton singleton = Singleton.getInstance();</span><br><span class="line">        System.out.println(<span class="string">"Singleton1 value1:"</span> + singleton.value1);</span><br><span class="line">        System.out.println(<span class="string">"Singleton1 value2:"</span> + singleton.value2);</span><br><span class="line"></span><br><span class="line">        Singleton2 singleton2 = Singleton2.getInstance2();</span><br><span class="line">        System.out.println(<span class="string">"Singleton2 value1:"</span> + singleton2.value1);</span><br><span class="line">        System.out.println(<span class="string">"Singleton2 value2:"</span> + singleton2.value2);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>说出运行的结果：<br>Singleton1 value1 : 1<br>Singleton1 value2 : 0<br>Singleton2 value1 : 1<br>Singleton2 value2 : 1</p>
+<p>稍后会带来分析。</p>
+<h2 id="1、类加载机制"><a href="#1、类加载机制" class="headerlink" title="1、类加载机制"></a>1、类加载机制</h2><p>JVM类加载分为5个过程：加载，验证，准备，解析，初始化，使用，卸载，如下图所示： </p>
+<p><img src="https://lemon9610.github.io/assets/bkimg/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%9B%BE.png" alt="类加载图"></p>
+<p>​    其中加载、检验、准备、初始化和卸载这个五个阶段的顺序是固定的，而解析则未必。为了支持动态绑定，<code>解析这个过程可以发生在初始化阶段之后</code>。另外，这个过程表示的是按顺序开始，不是所谓的第一步、第二步、第三步的关系，而往往是<code>交叉混合</code>进行，在一个阶段中可能调用或者激活另一个过程。<br>​    java中，对于初始化阶段，有且只有以下五种情况才会对要求类立刻“初始化”：</p>
+<p>​    1、使用new关键字实例化对象、访问或者设置一个类的<code>静态字段</code>（<code>被final修饰、编译器优化时已经放入常量池的例外</code>）、调用<code>静态方法</code>，都会初始化该<code>静态字段</code>或者<code>静态方法</code>所在的类。<br>​    2、初始化类的时候，如果其父类没有被初始化过，则要先触发其父类初始化。<br>​    3、使用java.lang.reflect包的方法进行反射调用的时候，如果类没有被初始化，则要先初始化。<br>​    4、虚拟机启动时，用户会先初始化要执行的主类（含有main）<br>​    5、jdk 1.7后，如果java.lang.invoke.MethodHandle的实例最后对应的解析结果是 REF_getStatic、REF_putStatic、REF_invokeStatic方法句柄，并且这个方法所在类没有初始化，则先初始化。</p>
+<p>下面来看看加载，验证，准备，解析，初始化这5个过程的具体动作。</p>
+<h3 id="1-1-加载"><a href="#1-1-加载" class="headerlink" title="1.1 加载"></a>1.1 加载</h3><p>加载主要是将.class文件（并不一定是.class。可以是ZIP包，网络中获取）中的二进制字节流读入到JVM中。<br>在加载阶段，JVM需要完成3件事：<br>1）通过类的全限定名获取该类的二进制字节流；<br>2）将字节流所代表的静态存储结构转化为方法区的运行时数据结构；<br>3）在内存中生成一个该类的java.lang.Class对象，作为方法区这个类的各种数据的访问入口。</p>
+<h3 id="1-2连接"><a href="#1-2连接" class="headerlink" title="1.2连接"></a>1.2连接</h3><h4 id="1-2-1验证"><a href="#1-2-1验证" class="headerlink" title="1.2.1验证"></a>1.2.1验证</h4><p>验证是连接阶段的第一步，主要确保加载进来的字节流符合JVM规范。<br>验证阶段会完成以下4个阶段的检验动作：<br>​    1、文件格式验证：基于字节流验证，验证字节流符合当前的Class文件格式的规范，能被当前虚拟机处理。验证通过后，字节流才会进入内存的方法区进行存储。<br>​    2、元数据验证：基于方法区的存储结构验证，对字节码进行语义验证，确保不存在不符合java语言规范的元数据信息。<br>​    3、字节码验证：基于方法区的存储结构验证，通过对数据流和控制流的分析，保证被检验类的方法在运行时不会做出危害虚拟机的动作。<br>​    4、符号引用验证：基于方法区的存储结构验证，发生在解析阶段，确保能够将符号引用成功的解析为直接引用，其目的是确保解析动作正常执行。换句话说就是对类自身以外的信息进行匹配性校验。</p>
+<h4 id="1-2-2-准备"><a href="#1-2-2-准备" class="headerlink" title="1.2.2 准备"></a>1.2.2 准备</h4><p>主要为<code>静态变量</code>在<code>方法区</code>分配内存，并设置默认初始值。</p>
+<p>​    注意这里静态变量不包含用<strong>final修饰的static</strong>，因为用final修饰的类变量在javac执行编译期间就会分配，同时要注意，这里不会为成员变量分配初始化。静态变量会分配在方法区中，而成员变量会在对象实例化时随着对象一起被分配在java堆中。举例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> value=<span class="number">33</span>;</span><br></pre></td></tr></table></figure>
+
+<p>​    这据代码的赋值过程分两次，一是上面我们提到的阶段，此时的value将会被赋值为0；而value=33这个过程发生在类构造器的<code>&lt;clinit&gt;()</code>方法中。</p>
+<h4 id="1-2-3-解析"><a href="#1-2-3-解析" class="headerlink" title="1.2.3 解析"></a>1.2.3 解析</h4><p>主要是虚拟机将常量池内的<code>符号引用</code>替换为<code>直接引用</code>的过程。</p>
+<p>​    <strong>符号引用</strong>是用一组符号来描述目标，可以是任何自变量，而<strong>直接引用</strong>则是直接指向目标的指针、相对偏移量或一个间接定位到目标的句柄。通常而言一个符号引用在不同虚拟机实例翻译出来的直接引用一般不会相同。<br>​    和C之类的纯编译型语言不同，Java类文件在编译过程中只会生成class文件，并不会进行<strong>连接操作</strong>，这意味在<strong>编译阶段</strong>Java类并不知道<strong>引用类的实际地址</strong>，因此只能用“符号引用”来代表引用类。</p>
+<p>​    举个例子来说明，在com.Person类中引用了com.Animal类，在编译阶段，Person类并不知道Animal的实际内存地址，因此只能用com.Animal来代表Animal真实的内存地址。在解析阶段，JVM可以通过解析该符号引用，来确定com.Animal类的真实内存地址（如果该类未被加载过，则先加载）。<br>​    主要有以下四种：类或接口的解析、字段解析、类方法解析、接口方法解析</p>
+<h3 id="1-3-初始化"><a href="#1-3-初始化" class="headerlink" title="1.3 初始化"></a>1.3 初始化</h3><p>主要是根据程序中的赋值语句主动为类变量赋值。 </p>
+<p>​    类加载过程的最后一步，到该阶段才真正开始执行类中定义的java代码，同样该阶段也是初始化类变量和其他资源（执行static字段和静态代码块），换句话说该阶段是执行类构造器<clinit>()方法的过程。<br>​    <clinit>()方法是由编译器自动收集类中所有的类变量的赋值动作和静态语句块中的语句合并而成。<clinit>()方法和实例构造方法<init>()不同，它不需要显示的调用父类的<clinit>()，虚拟机会保证父类的<clinit>()方法在子类的<clinit>()方法之前执行完成，也就是说，父类的静态语句块和静态变量优先于子类中变量赋值操作。<br>​    <clinit>()方法对于类或者接口来说并不是必需的，如果一个类中没有<code>静态语句块</code>，也没有<code>对变量赋值</code>的操作，那么编译器就不会为这个类生成<clinit>()方法。接口中不能使用静态语句块，但仍然有变量赋值的操作，所以仍然可以生成<clinit>()方法，但与类不同，接口<clinit>()方法不需要先执行父接口的<clinit>()方法。另外，接口的实现类在初始化时也一样不会执行接口的<clinit>()方法。</clinit></clinit></clinit></clinit></clinit></clinit></clinit></clinit></clinit></init></clinit></clinit></clinit></p>
+<h2 id="类加载应用"><a href="#类加载应用" class="headerlink" title="类加载应用"></a>类加载应用</h2><p>再回过头来分析一开始的面试题。  </p>
+<p>Singleton1输出结果是1，0的原因：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> 首先执行main中的Singleton singleton = Singleton.getInstance(); </span><br><span class="line"><span class="number">2</span> 类的加载：加载类Singleton </span><br><span class="line"><span class="number">3</span> 类的验证 </span><br><span class="line"><span class="number">4</span> 类的准备：为静态变量分配内存，设置默认值。这里为singleton(引用类型)设置<span class="keyword">null</span>,value1,value2（基本数据类型）设置默认值<span class="number">0</span> </span><br><span class="line"><span class="number">5</span> 类的初始化（按照赋值语句进行修改）： </span><br><span class="line">执行<span class="keyword">private</span> <span class="keyword">static</span> Singleton singleton = <span class="keyword">new</span> Singleton(); </span><br><span class="line">执行Singleton的构造器：value1++;value2++; 此时value1，value2均等于<span class="number">1</span> </span><br><span class="line">执行 </span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> value1; </span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> value2 = <span class="number">0</span>; </span><br><span class="line">此时value1=<span class="number">1</span>，value2=<span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<p>Singleton2输出结果是1，1的原因：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> 首先执行main中的Singleton2 singleton2 = Singleton2.getInstance2(); </span><br><span class="line"><span class="number">2</span> 类的加载：加载类Singleton2 </span><br><span class="line"><span class="number">3</span> 类的验证 </span><br><span class="line"><span class="number">4</span> 类的准备：为静态变量分配内存，设置默认值。这里为value1,value2（基本数据类型）设置默认值<span class="number">0</span>,singleton2(引用类型)设置为<span class="keyword">null</span>, </span><br><span class="line"><span class="number">5</span> 类的初始化（按照赋值语句进行修改）： </span><br><span class="line">执行 </span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> value2 = <span class="number">0</span>; </span><br><span class="line">此时value2=<span class="number">0</span>(value1不变，依然是<span class="number">0</span>); </span><br><span class="line">执行 </span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> Singleton singleton = <span class="keyword">new</span> Singleton(); </span><br><span class="line">执行Singleton2的构造器：value1++;value2++; </span><br><span class="line">此时value1，value2均等于<span class="number">1</span>,即为最后结果</span><br></pre></td></tr></table></figure>
+
+<h2 id="2、类加载器"><a href="#2、类加载器" class="headerlink" title="2、类加载器"></a>2、类加载器</h2><p>​    把类加载阶段的“通过一个类的全限定名来获取描述此类的二进制字节流”这个动作交给虚拟机之外的<strong>类加载器</strong>来完成。这样的好处在于，我们可以自行实现类加载器来加载其他格式的类，只要是二进制字节流就行，这就大大增强了加载器灵活性。</p>
+<p>​    JVM提供了以下3种系统的类加载器：</p>
+<p>​    1、启动类加载器（Bootstrap ClassLoader）：最顶层的类加载器，负责加载 JAVA_HOME\lib 目录中的，或通过-Xbootclasspath参数指定路径中的，且被虚拟机认可（按文件名识别，如rt.jar）的类。<br>​    2、扩展类加载器(Extension ClassLoader)：负责加载 JAVA_HOME\lib\ext 目录中的，或通过java.ext.dirs系统变量指定路径中的类库。<br>​    3、应用程序类加载器(Application ClassLoader)：也叫做系统类加载器，可以通过getSystemClassLoader()获取，负责加载用户路径（classpath）上的类库。如果没有自定义类加载器，一般这个就是默认的类加载器。</p>
+<p>​    以上三种是我们经常认识最多,除此之外还包括线程上下文类加载器(Thread Context ClassLoader)和自定义类加载器。</p>
+<p>​    线程上下文加载器: 每个线程都有一个类加载器(jdk 1.2后引入),称之为Thread Context ClassLoader,如果线程创建时没有设置,则默认从父线程中继承一个,如果在应用全局内都没有设置,则所有Thread Context ClassLoader为Application ClassLoader.可通过Thread.currentThread().setContextClassLoader(ClassLoader)来设置,通过Thread.currentThread().getContextClassLoader()来获取。<br>我们来想想线程上下文加载器有什么用的?该类加载器容许父类加载器通过子类加载器加载所需要的类库,也就是打破了我们下文所说的<strong>双亲委派模型</strong>。利用线程上下文加载器,我们能够实现所有的代码热替换,热部署,Android中的热更新原理也是借鉴如此的.</p>
+<p>​    至于自定义加载器：JVM运行我们通过自定义的ClassLoader加载相关的类库.</p>
+<h4 id="类加载器的双亲委派模型"><a href="#类加载器的双亲委派模型" class="headerlink" title="类加载器的双亲委派模型"></a>类加载器的双亲委派模型</h4><p><img src="https://lemon9610.github.io/assets/bkimg/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8%E5%9B%BE.png" alt="类加载器图"></p>
+<p>​    类加载器之间的这种层次关系叫做双亲委派模型。 双亲委派模型要求除了顶层的启动类加载器（Bootstrap ClassLoader）外，其余的类加载器都应当有自己的父类加载器。这里的类加载器之间的父子关系一般不是以继承关系实现的，而是用组合实现的。</p>
+<h4 id="双亲委派模型的工作过程"><a href="#双亲委派模型的工作过程" class="headerlink" title="双亲委派模型的工作过程"></a>双亲委派模型的工作过程</h4><p>​    如果一个类接受到类加载请求，他自己不会去加载这个请求，而是将这个类加载请求委派给父类加载器，这样一层一层传送，直到到达启动类加载器（Bootstrap ClassLoader）。 只有当父类加载器无法加载这个请求时，子加载器才会尝试自己去加载。</p>
+<p>​    不难发现,该种加载流程的好处在于：</p>
+<p>​    1、可以避免重复加载，父类已经加载了，子类就不需要再次加载</p>
+<p>​    2、更加安全，很好的解决了各个类加载器的基础类的统一问题，如果不使用该种方式，那么用户可以随意定义类加载器来加载核心api，会带来相关隐患。</p>
+<h4 id="双亲委派模型的代码实现"><a href="#双亲委派模型的代码实现" class="headerlink" title="双亲委派模型的代码实现"></a>双亲委派模型的代码实现</h4><p>双亲委派模型的代码实现集中在java.lang.ClassLoader的loadClass()方法当中。<br>1）首先检查类是否被加载，没有则调用父类加载器的loadClass()方法；<br>2）若父类加载器为空，则默认使用启动类加载器作为父加载器；<br>3）若父类加载失败，抛出ClassNotFoundException 异常后，再调用自己的findClass() 方法。</p>
+<p>loadClass源代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> <span class="keyword">synchronized</span> Class&lt;?&gt; loadClass(String name, <span class="keyword">boolean</span> resolve) <span class="keyword">throws</span> ClassNotFoundException &#123;</span><br><span class="line">    <span class="comment">//1 首先检查类是否被加载</span></span><br><span class="line">    Class c = findLoadedClass(name);</span><br><span class="line">    <span class="keyword">if</span> (c == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (parent != <span class="keyword">null</span>) &#123;</span><br><span class="line">             <span class="comment">//2 没有则调用父类加载器的loadClass()方法；</span></span><br><span class="line">                c = parent.loadClass(name, <span class="keyword">false</span>);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">//3 若父类加载器为空，则默认使用启动类加载器作为父加载器；</span></span><br><span class="line">                c = findBootstrapClass0(name);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (ClassNotFoundException e) &#123;</span><br><span class="line">           <span class="comment">//4 若父类加载失败，抛出ClassNotFoundException 异常后</span></span><br><span class="line">            c = findClass(name);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (resolve) &#123;</span><br><span class="line">        <span class="comment">//5 再调用自己的findClass() 方法。</span></span><br><span class="line">        resolveClass(c);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> c;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="类加载器的特点"><a href="#类加载器的特点" class="headerlink" title="类加载器的特点"></a>类加载器的特点</h4><ol>
+<li>运行任何一个程序时，总是由Application Loader开始加载指定的类。</li>
+<li>一个类在收到加载类请求时，总是先交给其父类尝试加载。</li>
+<li>Bootstrap Loader是最顶级的类加载器，其父加载器为null。</li>
+</ol>
+<h4 id="类加载的三种方式"><a href="#类加载的三种方式" class="headerlink" title="类加载的三种方式"></a>类加载的三种方式</h4><p>​    1、通过命令行启动应用时由JVM初始化加载含有main()方法的主类。<br>​    2、通过Class.forName()方法动态加载，会默认执行初始化块（static{}），但是Class.forName(name,initialize,loader)中的initialze可指定是否要执行初始化块。<br>​    3、通过ClassLoader.loadClass()方法动态加载，不会执行初始化块。</p>
+<h4 id="破坏双亲委派模型"><a href="#破坏双亲委派模型" class="headerlink" title="破坏双亲委派模型"></a>破坏双亲委派模型</h4><p>​    双亲委派模型很好的解决了各个类加载器加载基础类的统一性问题。即越基础的类由越上层的加载器进行加载。 若加载的基础类中需要回调用户代码，而这时顶层的类加载器无法识别这些用户代码，怎么办呢？这时就需要破坏双亲委派模型了。<br>下面介绍两个例子来讲解破坏双亲委派模型的过程。</p>
+<h5 id="JNDI破坏双亲委派模型"><a href="#JNDI破坏双亲委派模型" class="headerlink" title="JNDI破坏双亲委派模型"></a>JNDI破坏双亲委派模型</h5><p>​    JNDI是Java标准服务，它的代码由启动类加载器去加载。但是JNDI需要回调独立厂商实现的代码，而类加载器无法识别这些回调代码（SPI）。<br>​    为了解决这个问题，引入了一个线程上下文类加载器。 可通过Thread.setContextClassLoader()设置。<br>利用线程上下文类加载器去加载所需要的SPI代码，即父类加载器请求子类加载器去完成类加载的过程，而破坏了双亲委派模型。</p>
+<h5 id="Spring破坏双亲委派模型"><a href="#Spring破坏双亲委派模型" class="headerlink" title="Spring破坏双亲委派模型"></a>Spring破坏双亲委派模型</h5><p>​    Spring要对用户程序进行组织和管理，而用户程序一般放在WEB-INF目录下，由WebAppClassLoader类加载器加载，而Spring由Common类加载器或Shared类加载器加载。<br>​    那么Spring是如何访问WEB-INF下的用户程序呢？<br>​    使用线程上下文类加载器。 Spring加载类所用的classLoader都是通过Thread.currentThread().getContextClassLoader()获取的。当线程创建时会默认创建一个AppClassLoader类加载器（对应Tomcat中的WebAppclassLoader类加载器）： setContextClassLoader(AppClassLoader)。<br>利用这个来加载用户程序。即任何一个线程都可通过getContextClassLoader()获取到WebAppclassLoader。</p>
+<h5 id="Tomcat类加载架构"><a href="#Tomcat类加载架构" class="headerlink" title="Tomcat类加载架构"></a>Tomcat类加载架构</h5><p><img src="https://lemon9610.github.io/assets/bkimg/tomcat%E7%B1%BB%E5%8A%A0%E8%BD%BD.png" alt="tomcat类加载"></p>
+<p>Tomcat目录下有4组目录：</p>
+<ul>
+<li>/common目录下：类库可以被Tomcat和Web应用程序共同使用；由 Common ClassLoader类加载器加载目录下的类库；</li>
+<li>/server目录：类库只能被Tomcat可见；由 Catalina ClassLoader类加载器加载目录下的类库；</li>
+<li>/shared目录：类库对所有Web应用程序可见，但对Tomcat不可见；由 Shared ClassLoader类加载器加载目录下的类库；</li>
+<li>/WebApp/WEB-INF目录：仅仅对当前web应用程序可见。由 WebApp ClassLoader类加载器加载目录下的类库；</li>
+<li>每一个JSP文件对应一个JSP类加载器。</li>
+</ul>
+<p>命令行下执行HelloWorld.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloWorld</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Hello world"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>该段代码大体经过了一下步骤:</p>
+<p>​    1、寻找jre目录，寻找jvm.dll，并初始化JVM.<br>​    2、产生一个Bootstrap ClassLoader；<br>​    3、Bootstrap ClassLoader加载器会加载他指定路径下的java核心api，并且生成Extended ClassLoader加载器的实例，然后Extended ClassLoader会加载指定路径下的扩展java api，并将其父设置为Bootstrap ClassLoader。<br>​    4、Bootstrap ClassLoader生成Application ClassLoader，并将其父Loader设置为Extended ClassLoader。<br>​    5、最后由AppClass ClassLoader加载classpath目录下定义的类——HelloWorld类。</p>
+<h2 id="注意问题"><a href="#注意问题" class="headerlink" title="注意问题"></a>注意问题</h2><p>在这里呢我们需要注意几个问题: </p>
+<p>​    1、我们知道ClassLoader通过一个类的全限定名来获取二进制流,那么如果我们需要通过自定义类加载其来加载一个Jar包的时候,难道要自己遍历jar中的类,然后依次通过ClassLoader进行加载吗?或者说我们怎么来加载一个jar包呢? </p>
+<p>​    2、如果一个类引用的其他的类,那么这个其他的类由谁来加载? </p>
+<p>​    3、既然类可以由不同的加载器加载,那么如何确定两个类如何是同一个类?</p>
+<p>我们来依次解答这两个问题:<br>​    对于动态加载jar而言,JVM默认会使用第一次加载该jar中指定类的类加载器作为默认的ClassLoader.假设我们现在存在名为sbbic的jar包,该包中存在ClassA和ClassB这两个类(ClassA中没有引用ClassB).现在我们通过自定义的ClassLoaderA来加载在ClassA这个类,那么此时此时ClassLoaderA就成为sbbic.jar中其他类的默认类加载器.也就是,ClassB也默认会通过ClassLoaderA去加载.</p>
+<p>​    那么如果ClassA中引用了ClassB呢?当类加载器在加载ClassA的时候,发现引用了ClassB,此时类加载如果检测到ClassB还没有被加载,则先回去加载.当ClassB加载完成后,继续回来加载ClassA.换句话说,类会通过自身对应的来加载其加载其他引用的类.</p>
+<p>​    JVM规定,对于任何一个类,都需要由加载它的类加载器和这个类本身一同确立在java虚拟机中的唯一性,通俗点就是说,在jvm中判断两个类是否是同一个类取决于类加载和类本身,也就是同一个类加载器加载的同一份Class文件生成的Class对象才是相同的,类加载器不同,那么这两个类一定不相同.</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>感谢老铁请我恰鸡腿<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/wepay.jpg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -211,377 +326,160 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://lemon9610.github.io/2019/08/20/JVM类加载机制/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/18/Zookeeper一揽子计划（三）/" class="archive-article-date">
-  	<time datetime="2019-08-18T05:35:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-18</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2019/08/18/Zookeeper一揽子计划（三）/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Zookeeper一揽子计划（三）</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/18/Zookeeper一揽子计划（三）/">Zookeeper一揽子计划（三）</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Zookeeper</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#主要内容："><span class="toc-number">1.</span> <span class="toc-text">主要内容：</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#JVM类加载机制"><span class="toc-number"></span> <span class="toc-text">JVM类加载机制</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#引出类加载"><span class="toc-number"></span> <span class="toc-text">引出类加载</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1、类加载机制"><span class="toc-number"></span> <span class="toc-text">1、类加载机制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-加载"><span class="toc-number"></span> <span class="toc-text">1.1 加载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2连接"><span class="toc-number"></span> <span class="toc-text">1.2连接</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-1验证"><span class="toc-number">1.</span> <span class="toc-text">1.2.1验证</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-2-准备"><span class="toc-number">2.</span> <span class="toc-text">1.2.2 准备</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-3-解析"><span class="toc-number">3.</span> <span class="toc-text">1.2.3 解析</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-初始化"><span class="toc-number"></span> <span class="toc-text">1.3 初始化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#类加载应用"><span class="toc-number"></span> <span class="toc-text">类加载应用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、类加载器"><span class="toc-number"></span> <span class="toc-text">2、类加载器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#类加载器的双亲委派模型"><span class="toc-number">1.</span> <span class="toc-text">类加载器的双亲委派模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#双亲委派模型的工作过程"><span class="toc-number">2.</span> <span class="toc-text">双亲委派模型的工作过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#双亲委派模型的代码实现"><span class="toc-number">3.</span> <span class="toc-text">双亲委派模型的代码实现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#类加载器的特点"><span class="toc-number">4.</span> <span class="toc-text">类加载器的特点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#类加载的三种方式"><span class="toc-number">5.</span> <span class="toc-text">类加载的三种方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#破坏双亲委派模型"><span class="toc-number">6.</span> <span class="toc-text">破坏双亲委派模型</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#JNDI破坏双亲委派模型"><span class="toc-number">6.1.</span> <span class="toc-text">JNDI破坏双亲委派模型</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Spring破坏双亲委派模型"><span class="toc-number">6.2.</span> <span class="toc-text">Spring破坏双亲委派模型</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Tomcat类加载架构"><span class="toc-number">6.3.</span> <span class="toc-text">Tomcat类加载架构</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注意问题"><span class="toc-number"></span> <span class="toc-text">注意问题</span></a>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/16/Zookeeper一揽子计划（二）/" class="archive-article-date">
-  	<time datetime="2019-08-16T05:35:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-16</time>
-</a>
-        </div>
-    	 
+  <div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="JVM类加载机制" data-title="JVM类加载机制" data-url="https://lemon9610.github.io/2019/08/20/JVM类加载机制/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/16/Zookeeper一揽子计划（二）/">Zookeeper一揽子计划（二）</a>
-    </h1>
+  
+  
+  <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+<script>
+  var cloudTieConfig = {
+    url: "https://lemon9610.github.io/2019/08/20/JVM类加载机制/", 
+    sourceId: "JVM类加载机制",
+    productKey: "true",
+    target: "cloud-tie-wrapper"
+  };
+</script>
+<script src="//img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Zookeeper</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/14/Zookeeper一揽子计划（一）/" class="archive-article-date">
-  	<time datetime="2019-08-14T05:35:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-14</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/14/Zookeeper一揽子计划（一）/">Zookeeper一揽子计划（一）</a>
-    </h1>
+  <div id="SOHUCS" sid="JVM类加载机制" ></div> 
+<script charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/changyan.js" ></script>
+<script type="text/javascript">
+    window.changyan.api.config({
+        appid: "true",
+        conf: "true"
+    });
+</script>
+</script>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Zookeeper</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/12/CAP原理/" class="archive-article-date">
-  	<time datetime="2019-08-12T05:35:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/12/CAP原理/">CAP原则介绍</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/12/ehcache、memcache、redis三大缓存比较/" class="archive-article-date">
-  	<time datetime="2019-08-12T05:35:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/12/ehcache、memcache、redis三大缓存比较/">ehcache、memcache、redis三大缓存比较</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/12/JavaWeb获取客户端IP，MAC脱坑/" class="archive-article-date">
-  	<time datetime="2019-08-11T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/12/JavaWeb获取客户端IP，MAC脱坑/">JavaWeb获取客户端IP，MAC脱坑</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/11/AOP切面编程复习/" class="archive-article-date">
-  	<time datetime="2019-08-11T05:35:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/11/AOP切面编程复习/">AOP切面编程复习</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/10/VUE学习笔记/" class="archive-article-date">
-  	<time datetime="2019-08-10T05:35:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-10</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/10/VUE学习笔记/">VUE学习笔记</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">vue</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/09/网络数据传输/" class="archive-article-date">
-  	<time datetime="2019-08-09T05:35:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/09/网络数据传输/">网络数据传输</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -609,9 +507,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,

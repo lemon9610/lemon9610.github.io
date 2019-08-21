@@ -6,19 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://lemon9610.github.io">
-  <title>Tag: 学习笔记 | Lemon</title>
+  <title>Zookeeper一揽子计划（三） | Lemon</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="能吃且有趣的灵魂">
-<meta name="keywords" content="外焦里嫩">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Lemon">
-<meta property="og:url" content="https://lemon9610.github.io/tags/学习笔记/index.html">
+  <meta name="description" content="主要内容：Zookeeper知识的复习，这一部分记录了Zookeeper的应用。">
+<meta name="keywords" content="学习笔记,Zookeeper">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Zookeeper一揽子计划（三）">
+<meta property="og:url" content="https://lemon9610.github.io/2019/08/18/Zookeeper一揽子计划（三）/index.html">
 <meta property="og:site_name" content="Lemon">
-<meta property="og:description" content="能吃且有趣的灵魂">
+<meta property="og:description" content="主要内容：Zookeeper知识的复习，这一部分记录了Zookeeper的应用。">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-08-21T10:40:42.378Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Lemon">
-<meta name="twitter:description" content="能吃且有趣的灵魂">
+<meta name="twitter:title" content="Zookeeper一揽子计划（三）">
+<meta name="twitter:description" content="主要内容：Zookeeper知识的复习，这一部分记录了Zookeeper的应用。">
   
     <link rel="alternative" href="/atom.xml" title="Lemon" type="application/atom+xml">
   
@@ -166,78 +167,92 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-Zookeeper一揽子计划（三）" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/20/JVM类加载机制/" class="archive-article-date">
-  	<time datetime="2019-08-20T05:35:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-20</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        <center><p>
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/20/JVM类加载机制/">JVM类加载机制</a>
+    <h1 class="article-title_code_ant" itemprop="name">
+      Zookeeper一揽子计划（三）
     </h1>
   
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">JVM</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/18/Zookeeper一揽子计划（三）/" class="archive-article-date">
+</p></center>
+        
+        <a href="/2019/08/18/Zookeeper一揽子计划（三）/" class="archive-article-date">
   	<time datetime="2019-08-18T05:35:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-18</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/18/Zookeeper一揽子计划（三）/">Zookeeper一揽子计划（三）</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="主要内容："><a href="#主要内容：" class="headerlink" title="主要内容："></a>主要内容：</h4><p>Zookeeper知识的复习，这一部分记录了Zookeeper的应用。</p>
+<a id="more"></a>
 
-        <div class="article-info info-on-right">
-          
+<h1 id="Zookeeper一揽子计划（三）"><a href="#Zookeeper一揽子计划（三）" class="headerlink" title="Zookeeper一揽子计划（三）"></a>Zookeeper一揽子计划（三）</h1><h2 id="7、Zookeeper能干啥"><a href="#7、Zookeeper能干啥" class="headerlink" title="7、Zookeeper能干啥"></a>7、Zookeeper能干啥</h2><h3 id="7-1数据发布与订阅（配置中心）"><a href="#7-1数据发布与订阅（配置中心）" class="headerlink" title="7.1数据发布与订阅（配置中心）"></a>7.1数据发布与订阅（配置中心）</h3><p>​    发布与订阅模型，即所谓的配置中心，顾名思义就是发布者将数据发布到 ZK节点上，供订阅者动态获取数据，实现配置信息的集中式管理和动态更新。 应用在启动的时候会主动来获取一次配置，同时，在节点上注册一个 Watcher，这样一来，以后每次配置有更新的时候，都会实时通知到订阅的客户端，从来达到获取最新配置信息的目的。比如：<br>​    分布式搜索服务中，索引的元信息和服务器集群机器的节点状态存放在 ZK的一些指定节点，供各个客户端订阅使用。<br>注意：适合数据量很小的场景，这样数据更新可能会比较快。 </p>
+<p>​    <strong>solr集群</strong>有使用的就是这应用，使用solr需要设置很多域，如果搭建集群一个一个修改，会很麻烦，所以把配置上传到ZK，注册一个节点，使用ZK来统一管理，实现配置信息的集中式管理和动态更新。</p>
+<h3 id="7-2命名服务-Naming-Service"><a href="#7-2命名服务-Naming-Service" class="headerlink" title="7.2命名服务(Naming Service)"></a>7.2命名服务(Naming Service)</h3><p>​    在分布式系统中，通过使用命名服务，客户端应用能够根据指定名字来获取资源或服务的地址，提供者等信息。被命名的实体通常可以是集群中的机器，提供的服务地址，远程对象等等——这些我们都可以统称他们为名字（Name）。其中较为常见的就是一些分布式服务框架中的服务地址列表。通过调用 ZK 提供的创建节点的 API，能够很容易创建一个全局唯一的 path，这个 path 就可以作为一个名称。 阿里巴巴集团开源的分布式服务框架 Dubbo 中使用 ZooKeeper 来作为其命名服务，维护全局的服务地址列表。 </p>
+<p>​    <strong>duboo</strong>就是使用了ZK的这个应用，service层在ZK上注册一个Interface的节点，节点内容是提供service的ip地址和接口，web层使用Interface的时候，需要到ZK获取这个节点的内容，并设置监听。获取到后访问服务的ip地址，获取到服务。</p>
+<h3 id="7-3分布式锁"><a href="#7-3分布式锁" class="headerlink" title="7.3分布式锁"></a>7.3分布式锁</h3><p>​    分布式锁，这个主要得益于 ZooKeeper 保证了数据的强一致性。锁服务可以分为两类，一个是保持独占，另一个是控制时序。     </p>
+<p><strong>保持独占：</strong></p>
+<p>​    所谓保持独占，就是所有试图来获取这个锁的客户端，最终只有一个可以成功获得这把锁。通常的做法是把 zk 上的一个 znode 看作是一把锁，通过 create znode 的方式来实现。所有客户端都去创建 /distribute_lock 节点，最终成功创建的那个客户端也即拥有了这把锁。 （缺陷比较明显，不能保证每个机器都有机会获取到锁）。</p>
+<p><strong>控制时序：</strong></p>
+<p>​    控制时序，就是所有试图来获取这个锁的客户端，最终都是会被安排执行，只是有个全局时序了。做法和上面基本类似，只是这里 /distribute_lock 已经预先存在，客户端在它下面<strong>创建临时有序节点</strong>。Zk 的父节点（/distribute_lock）维持一份 sequence,保证子节点创建的<strong>时序性</strong>，从而也形成了每个客户端的全局时序。</p>
+<p>​    <strong>即：</strong>利用创建节点的临时性和有序性，获取锁的时候，看自己创建的节点序号是否是最小的，如果是，则获取到锁。使用锁结束后就删除这个节点/断开使用连接。如果是不断使用锁资源，那就删除节点，然后再次创建一个新的节点，排队等待调用。</p>
+<p><strong>分布式锁的对比</strong></p>
+<p>具体差异比较：</p>
+<p><strong>从实现的复杂性角度（从低到高）</strong><br>Zookeeper &gt;= 缓存（Redis） &gt; 数据库</p>
+<p><strong>从性能角度（从高到低）</strong><br>缓存（Redis） &gt; Zookeeper &gt;= 数据库</p>
+<p><strong>从可靠性角度（从高到低）</strong><br>Zookeeper &gt; 缓存（Redis） &gt; 数据库</p>
+<h3 id="7-4动态管理服务集群"><a href="#7-4动态管理服务集群" class="headerlink" title="7.4动态管理服务集群"></a>7.4动态管理服务集群</h3><p><strong>应用出现的原因：</strong></p>
+<ul>
+<li>集群中增加了一个服务节点，客户端不更新，则新的服务节点得不到使用</li>
+<li>集群中有服务节点宕机，客户端不知情，导致调用失败。</li>
+</ul>
+<p><strong>引入zookeeper：</strong></p>
+<p>1、当有新的服务加入，需要服务启动立马向zookeeper注册临时节点目录</p>
+<p>2、当集群中的节点突然宕机，那么临时目录销毁，该节点在zookeeper的数据就不存在了。</p>
+<p>3、客户端端可以通过zookeeper的监听机制，可以动态感知。</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>感谢老铁请我恰鸡腿<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/wepay.jpg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -253,335 +268,169 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://lemon9610.github.io/2019/08/18/Zookeeper一揽子计划（三）/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/16/Zookeeper一揽子计划（二）/" class="archive-article-date">
-  	<time datetime="2019-08-16T05:35:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-16</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2019/08/20/JVM类加载机制/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          JVM类加载机制
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/08/16/Zookeeper一揽子计划（二）/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Zookeeper一揽子计划（二）</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/16/Zookeeper一揽子计划（二）/">Zookeeper一揽子计划（二）</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Zookeeper</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#主要内容："><span class="toc-number">1.</span> <span class="toc-text">主要内容：</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Zookeeper一揽子计划（三）"><span class="toc-number"></span> <span class="toc-text">Zookeeper一揽子计划（三）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#7、Zookeeper能干啥"><span class="toc-number"></span> <span class="toc-text">7、Zookeeper能干啥</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-1数据发布与订阅（配置中心）"><span class="toc-number"></span> <span class="toc-text">7.1数据发布与订阅（配置中心）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-2命名服务-Naming-Service"><span class="toc-number"></span> <span class="toc-text">7.2命名服务(Naming Service)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-3分布式锁"><span class="toc-number"></span> <span class="toc-text">7.3分布式锁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-4动态管理服务集群"><span class="toc-number"></span> <span class="toc-text">7.4动态管理服务集群</span></a>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/14/Zookeeper一揽子计划（一）/" class="archive-article-date">
-  	<time datetime="2019-08-14T05:35:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-14</time>
-</a>
-        </div>
-    	 
+  <div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="Zookeeper一揽子计划（三）" data-title="Zookeeper一揽子计划（三）" data-url="https://lemon9610.github.io/2019/08/18/Zookeeper一揽子计划（三）/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/14/Zookeeper一揽子计划（一）/">Zookeeper一揽子计划（一）</a>
-    </h1>
+  
+  
+  <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+<script>
+  var cloudTieConfig = {
+    url: "https://lemon9610.github.io/2019/08/18/Zookeeper一揽子计划（三）/", 
+    sourceId: "Zookeeper一揽子计划（三）",
+    productKey: "true",
+    target: "cloud-tie-wrapper"
+  };
+</script>
+<script src="//img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Zookeeper</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/12/CAP原理/" class="archive-article-date">
-  	<time datetime="2019-08-12T05:35:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/12/CAP原理/">CAP原则介绍</a>
-    </h1>
+  <div id="SOHUCS" sid="Zookeeper一揽子计划（三）" ></div> 
+<script charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/changyan.js" ></script>
+<script type="text/javascript">
+    window.changyan.api.config({
+        appid: "true",
+        conf: "true"
+    });
+</script>
+</script>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/12/ehcache、memcache、redis三大缓存比较/" class="archive-article-date">
-  	<time datetime="2019-08-12T05:35:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/12/ehcache、memcache、redis三大缓存比较/">ehcache、memcache、redis三大缓存比较</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/12/JavaWeb获取客户端IP，MAC脱坑/" class="archive-article-date">
-  	<time datetime="2019-08-11T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/12/JavaWeb获取客户端IP，MAC脱坑/">JavaWeb获取客户端IP，MAC脱坑</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/11/AOP切面编程复习/" class="archive-article-date">
-  	<time datetime="2019-08-11T05:35:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/11/AOP切面编程复习/">AOP切面编程复习</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/10/VUE学习笔记/" class="archive-article-date">
-  	<time datetime="2019-08-10T05:35:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-10</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/10/VUE学习笔记/">VUE学习笔记</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">vue</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/09/网络数据传输/" class="archive-article-date">
-  	<time datetime="2019-08-09T05:35:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/09/网络数据传输/">网络数据传输</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -609,9 +458,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
