@@ -16,15 +16,15 @@
 <meta property="og:site_name" content="Lemon">
 <meta property="og:description" content="网络数据传输">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://lemon9610.github.io/assets/bkimg/%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98.png">
-<meta property="og:image" content="https://lemon9610.github.io/assets/bkimg/%E7%89%A9%E7%90%86%E5%86%85%E5%AD%981.png">
-<meta property="og:image" content="https://lemon9610.github.io/assets/bkimg/%E7%89%A9%E7%90%86%E5%86%85%E5%AD%982.png">
-<meta property="og:image" content="https://lemon9610.github.io/assets/bkimg/%E7%BD%91%E7%BB%9C%E8%BF%90%E8%BE%93%E5%85%A8%E8%BF%87%E7%A8%8B.png">
-<meta property="og:updated_time" content="2019-08-21T10:31:50.783Z">
+<meta property="og:image" content="https://lemon9610.github.io/bkimg/%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98.png">
+<meta property="og:image" content="https://lemon9610.github.io/bkimg/%E7%89%A9%E7%90%86%E5%86%85%E5%AD%981.png">
+<meta property="og:image" content="https://lemon9610.github.io/bkimg/%E7%89%A9%E7%90%86%E5%86%85%E5%AD%982.png">
+<meta property="og:image" content="https://lemon9610.github.io/bkimg/%E7%BD%91%E7%BB%9C%E8%BF%90%E8%BE%93%E5%85%A8%E8%BF%87%E7%A8%8B.png">
+<meta property="og:updated_time" content="2019-08-22T06:57:21.106Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="网络数据传输">
 <meta name="twitter:description" content="网络数据传输">
-<meta name="twitter:image" content="https://lemon9610.github.io/assets/bkimg/%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98.png">
+<meta name="twitter:image" content="https://lemon9610.github.io/bkimg/%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98.png">
   
     <link rel="alternative" href="/atom.xml" title="Lemon" type="application/atom+xml">
   
@@ -208,13 +208,13 @@
 <h3 id="MMAP"><a href="#MMAP" class="headerlink" title="MMAP"></a>MMAP</h3><p><strong>什么是mmap？</strong></p>
 <p>Linux通过将一个虚拟内存区域与一个磁盘上的对象(object)关联起来，以初始化这个虚拟内存区域的内容，这个过程称为内存映射(memory mapping)。</p>
 <p><strong>mmap在进程虚拟内存做了什么</strong></p>
-<p><img src="https://lemon9610.github.io/assets/bkimg/%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98.png" alt="虚拟内存"></p>
+<p><img src="https://lemon9610.github.io/bkimg/%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98.png" alt="虚拟内存"></p>
 <p>假设我们mmap的文件是FileA，在调用mmap之后，会在进程的虚拟内存分配地址空间，创建映射关系。</p>
 <p><strong>mmap在物理内存做了什么</strong></p>
 <p>在Linux中，VM系统通过将虚拟内存分割为称作虚拟页(Virtual Page，VP)大小固定的块来处理磁盘(较低层)与上层数据的传输，一般情况下，每个页的大小默认是4096字节。同样的，物理内存也被分割为物理页(Physical Page，PP)，也为4096字节。</p>
-<p><img src="https://lemon9610.github.io/assets/bkimg/%E7%89%A9%E7%90%86%E5%86%85%E5%AD%981.png" alt="物理内存1"></p>
+<p><img src="https://lemon9610.github.io/bkimg/%E7%89%A9%E7%90%86%E5%86%85%E5%AD%981.png" alt="物理内存1"></p>
 <p>在mmap之后，并没有在将文件内容加载到物理页上，只上在虚拟内存中分配了地址空间。当进程在访问这段地址时（通过mmap在写入或读取时FileA），若虚拟内存对应的page没有在物理内存中缓存，则产生”缺页”，由内核的缺页异常处理程序处理，将文件对应内容，以页为单位(4096)加载到物理内存，注意是只加载缺页，但也会受操作系统一些调度策略影响，加载的比所需的多，这里就不展开了。</p>
-<p><img src="https://lemon9610.github.io/assets/bkimg/%E7%89%A9%E7%90%86%E5%86%85%E5%AD%982.png" alt="物理内存2"></p>
+<p><img src="https://lemon9610.github.io/bkimg/%E7%89%A9%E7%90%86%E5%86%85%E5%AD%982.png" alt="物理内存2"></p>
 <p><strong>mmap的类型</strong></p>
 <p>​    mmap有两种类型，一种是有backend，一种是没有backend。</p>
 <p><strong>backend：</strong></p>
@@ -234,7 +234,7 @@
 <p>​    数据库系统一般都对响应延迟比较敏感，如果使用swap代替内存，数据库服务性能必然不可接受。</p>
 <p><strong>swap是如何触发的？</strong></p>
 <p>​    Linux会在两种场景下触发内存回收，一种是在内存分配时发现没有足够空闲内存时会立刻触发内存回收；一种是开启了一个守护进程（swapd进程）周期性对系统内存进行检查，在可用内存降低到特定阈值之后主动触发内存回收。</p>
-<h2 id="数据传输过程："><a href="#数据传输过程：" class="headerlink" title="数据传输过程："></a>数据传输过程：</h2><p><img src="https://lemon9610.github.io/assets/bkimg/%E7%BD%91%E7%BB%9C%E8%BF%90%E8%BE%93%E5%85%A8%E8%BF%87%E7%A8%8B.png" alt="网络运输全过程"></p>
+<h2 id="数据传输过程："><a href="#数据传输过程：" class="headerlink" title="数据传输过程："></a>数据传输过程：</h2><p><img src="https://lemon9610.github.io/bkimg/%E7%BD%91%E7%BB%9C%E8%BF%90%E8%BE%93%E5%85%A8%E8%BF%87%E7%A8%8B.png" alt="网络运输全过程"></p>
 <ol>
 <li><p>当httpd服务收到浏览器发送的index.html文件的请求时，负责处理请求的httpd子进程/线程总是会先发起系统调用，让<strong>内核</strong>将index.html从存储设备中加载出来。但是加载到的位置是<strong>内核空间的缓冲区kernel buffer</strong>，而不是直接给进程/线程的内存区。由于是<strong>内存设备和存储设备</strong>之间的数据传输，没有CPU的参与，所以这次是<strong>DMA操作</strong>。</p>
 </li>
@@ -571,15 +571,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">学习笔记</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">计划</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Zookeeper</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">学习笔记</a>
               </li>
              
               <li class="article-tag-list-item">

@@ -9,19 +9,19 @@
   <title>Zookeeper一揽子计划（二） | Lemon</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="主要内容：Zookeeper知识的复习，这一部分记录了Zookeeper的选举机制，监听机制，数据一致性，数据持久化，CAP理论。">
-<meta name="keywords" content="学习笔记,Zookeeper">
+<meta name="keywords" content="Zookeeper,学习笔记">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Zookeeper一揽子计划（二）">
 <meta property="og:url" content="https://lemon9610.github.io/2019/08/16/Zookeeper一揽子计划（二）/index.html">
 <meta property="og:site_name" content="Lemon">
 <meta property="og:description" content="主要内容：Zookeeper知识的复习，这一部分记录了Zookeeper的选举机制，监听机制，数据一致性，数据持久化，CAP理论。">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://lemon9610.github.io/assets/bkimg/zab.png">
-<meta property="og:updated_time" content="2019-08-21T10:40:22.251Z">
+<meta property="og:image" content="https://lemon9610.github.io/bkimg/zab.png">
+<meta property="og:updated_time" content="2019-08-22T06:55:54.664Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Zookeeper一揽子计划（二）">
 <meta name="twitter:description" content="主要内容：Zookeeper知识的复习，这一部分记录了Zookeeper的选举机制，监听机制，数据一致性，数据持久化，CAP理论。">
-<meta name="twitter:image" content="https://lemon9610.github.io/assets/bkimg/zab.png">
+<meta name="twitter:image" content="https://lemon9610.github.io/bkimg/zab.png">
   
     <link rel="alternative" href="/atom.xml" title="Lemon" type="application/atom+xml">
   
@@ -218,7 +218,7 @@
 <p>总的来说可以概括 Watcher 为以下三个过程：客户端向服务端注册Watcher、服务端事件发生触发 Watcher、客户端回调 Watcher 得到触发事件情况。</p>
 <h4 id="6-2-2Watch-机制特点"><a href="#6-2-2Watch-机制特点" class="headerlink" title="6.2.2Watch 机制特点"></a>6.2.2Watch 机制特点</h4><p>1、一次性触发<br>​    事件发生触发监听，一个 watcher event 就会被发送到设置监听的客户端，这种效果是一次性的，后续再次发生同样的事件，不会再次触发。<br>2、事件封装<br>​    ZooKeeper 使用 WatchedEvent 对象来封装服务端事件并传递。 WatchedEvent 包含了每一个事件的三个基本属性： 通知状态（keeperState） ，事件类型（EventType）和节点路径（path）<br>3、event 异步发送<br>​    watcher 的通知事件从服务端发送到客户端是异步的。<br>4、先注册再触发<br>​    Zookeeper 中的 watch 机制，必须客户端先去服务端注册监听，这样事件发送才会触发监听，通知给客户端。 </p>
 <h3 id="6-3数据一致性（zab协议-原子广播协议）"><a href="#6-3数据一致性（zab协议-原子广播协议）" class="headerlink" title="6.3数据一致性（zab协议-原子广播协议）"></a>6.3数据一致性（zab协议-原子广播协议）</h3><h4 id="6-3-1消息广播"><a href="#6-3-1消息广播" class="headerlink" title="6.3.1消息广播"></a>6.3.1消息广播</h4><p>通过集群的部署，根据CAP原理，这样，可能导致同一个数据在不同节点上的数据不一致。zookeeper通过zab原子广播协议来保证数据在每一个节点上的一致性。原子广播协议（类似2PC提交协议）大概分为3个步骤。</p>
-<p><img src="https://lemon9610.github.io/assets/bkimg/zab.png" alt="zab"></p>
+<p><img src="https://lemon9610.github.io/bkimg/zab.png" alt="zab"></p>
 <ul>
 <li>客户端发起一个写操作请求 </li>
 <li>Leader包装写请求，生成唯一zxid</li>
@@ -321,11 +321,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Zookeeper</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Zookeeper</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
         		</li>
       		
 		</ul>
@@ -592,15 +592,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">学习笔记</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">计划</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Zookeeper</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">学习笔记</a>
               </li>
              
               <li class="article-tag-list-item">

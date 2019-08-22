@@ -16,14 +16,14 @@
 <meta property="og:site_name" content="Lemon">
 <meta property="og:description" content="主要内容：整理的JVM类加载机制。">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://lemon9610.github.io/assets/bkimg/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%9B%BE.png">
-<meta property="og:image" content="https://lemon9610.github.io/assets/bkimg/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8%E5%9B%BE.png">
-<meta property="og:image" content="https://lemon9610.github.io/assets/bkimg/tomcat%E7%B1%BB%E5%8A%A0%E8%BD%BD.png">
-<meta property="og:updated_time" content="2019-08-21T10:40:12.921Z">
+<meta property="og:image" content="https://lemon9610.github.io/bkimg/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%9B%BE.png">
+<meta property="og:image" content="https://lemon9610.github.io/bkimg/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8%E5%9B%BE.png">
+<meta property="og:image" content="https://lemon9610.github.io/bkimg/tomcat%E7%B1%BB%E5%8A%A0%E8%BD%BD.png">
+<meta property="og:updated_time" content="2019-08-22T06:56:34.608Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JVM类加载机制">
 <meta name="twitter:description" content="主要内容：整理的JVM类加载机制。">
-<meta name="twitter:image" content="https://lemon9610.github.io/assets/bkimg/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%9B%BE.png">
+<meta name="twitter:image" content="https://lemon9610.github.io/bkimg/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%9B%BE.png">
   
     <link rel="alternative" href="/atom.xml" title="Lemon" type="application/atom+xml">
   
@@ -203,7 +203,7 @@
 <p>说出运行的结果：<br>Singleton1 value1 : 1<br>Singleton1 value2 : 0<br>Singleton2 value1 : 1<br>Singleton2 value2 : 1</p>
 <p>稍后会带来分析。</p>
 <h2 id="1、类加载机制"><a href="#1、类加载机制" class="headerlink" title="1、类加载机制"></a>1、类加载机制</h2><p>JVM类加载分为5个过程：加载，验证，准备，解析，初始化，使用，卸载，如下图所示： </p>
-<p><img src="https://lemon9610.github.io/assets/bkimg/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%9B%BE.png" alt="类加载图"></p>
+<p><img src="https://lemon9610.github.io/bkimg/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%9B%BE.png" alt="类加载图"></p>
 <p>​    其中加载、检验、准备、初始化和卸载这个五个阶段的顺序是固定的，而解析则未必。为了支持动态绑定，<code>解析这个过程可以发生在初始化阶段之后</code>。另外，这个过程表示的是按顺序开始，不是所谓的第一步、第二步、第三步的关系，而往往是<code>交叉混合</code>进行，在一个阶段中可能调用或者激活另一个过程。<br>​    java中，对于初始化阶段，有且只有以下五种情况才会对要求类立刻“初始化”：</p>
 <p>​    1、使用new关键字实例化对象、访问或者设置一个类的<code>静态字段</code>（<code>被final修饰、编译器优化时已经放入常量池的例外</code>）、调用<code>静态方法</code>，都会初始化该<code>静态字段</code>或者<code>静态方法</code>所在的类。<br>​    2、初始化类的时候，如果其父类没有被初始化过，则要先触发其父类初始化。<br>​    3、使用java.lang.reflect包的方法进行反射调用的时候，如果类没有被初始化，则要先初始化。<br>​    4、虚拟机启动时，用户会先初始化要执行的主类（含有main）<br>​    5、jdk 1.7后，如果java.lang.invoke.MethodHandle的实例最后对应的解析结果是 REF_getStatic、REF_putStatic、REF_invokeStatic方法句柄，并且这个方法所在类没有初始化，则先初始化。</p>
 <p>下面来看看加载，验证，准备，解析，初始化这5个过程的具体动作。</p>
@@ -232,7 +232,7 @@
 <p>​    以上三种是我们经常认识最多,除此之外还包括线程上下文类加载器(Thread Context ClassLoader)和自定义类加载器。</p>
 <p>​    线程上下文加载器: 每个线程都有一个类加载器(jdk 1.2后引入),称之为Thread Context ClassLoader,如果线程创建时没有设置,则默认从父线程中继承一个,如果在应用全局内都没有设置,则所有Thread Context ClassLoader为Application ClassLoader.可通过Thread.currentThread().setContextClassLoader(ClassLoader)来设置,通过Thread.currentThread().getContextClassLoader()来获取。<br>我们来想想线程上下文加载器有什么用的?该类加载器容许父类加载器通过子类加载器加载所需要的类库,也就是打破了我们下文所说的<strong>双亲委派模型</strong>。利用线程上下文加载器,我们能够实现所有的代码热替换,热部署,Android中的热更新原理也是借鉴如此的.</p>
 <p>​    至于自定义加载器：JVM运行我们通过自定义的ClassLoader加载相关的类库.</p>
-<h4 id="类加载器的双亲委派模型"><a href="#类加载器的双亲委派模型" class="headerlink" title="类加载器的双亲委派模型"></a>类加载器的双亲委派模型</h4><p><img src="https://lemon9610.github.io/assets/bkimg/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8%E5%9B%BE.png" alt="类加载器图"></p>
+<h4 id="类加载器的双亲委派模型"><a href="#类加载器的双亲委派模型" class="headerlink" title="类加载器的双亲委派模型"></a>类加载器的双亲委派模型</h4><p><img src="https://lemon9610.github.io/bkimg/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8%E5%9B%BE.png" alt="类加载器图"></p>
 <p>​    类加载器之间的这种层次关系叫做双亲委派模型。 双亲委派模型要求除了顶层的启动类加载器（Bootstrap ClassLoader）外，其余的类加载器都应当有自己的父类加载器。这里的类加载器之间的父子关系一般不是以继承关系实现的，而是用组合实现的。</p>
 <h4 id="双亲委派模型的工作过程"><a href="#双亲委派模型的工作过程" class="headerlink" title="双亲委派模型的工作过程"></a>双亲委派模型的工作过程</h4><p>​    如果一个类接受到类加载请求，他自己不会去加载这个请求，而是将这个类加载请求委派给父类加载器，这样一层一层传送，直到到达启动类加载器（Bootstrap ClassLoader）。 只有当父类加载器无法加载这个请求时，子加载器才会尝试自己去加载。</p>
 <p>​    不难发现,该种加载流程的好处在于：</p>
@@ -251,7 +251,7 @@
 <h4 id="破坏双亲委派模型"><a href="#破坏双亲委派模型" class="headerlink" title="破坏双亲委派模型"></a>破坏双亲委派模型</h4><p>​    双亲委派模型很好的解决了各个类加载器加载基础类的统一性问题。即越基础的类由越上层的加载器进行加载。 若加载的基础类中需要回调用户代码，而这时顶层的类加载器无法识别这些用户代码，怎么办呢？这时就需要破坏双亲委派模型了。<br>下面介绍两个例子来讲解破坏双亲委派模型的过程。</p>
 <h5 id="JNDI破坏双亲委派模型"><a href="#JNDI破坏双亲委派模型" class="headerlink" title="JNDI破坏双亲委派模型"></a>JNDI破坏双亲委派模型</h5><p>​    JNDI是Java标准服务，它的代码由启动类加载器去加载。但是JNDI需要回调独立厂商实现的代码，而类加载器无法识别这些回调代码（SPI）。<br>​    为了解决这个问题，引入了一个线程上下文类加载器。 可通过Thread.setContextClassLoader()设置。<br>利用线程上下文类加载器去加载所需要的SPI代码，即父类加载器请求子类加载器去完成类加载的过程，而破坏了双亲委派模型。</p>
 <h5 id="Spring破坏双亲委派模型"><a href="#Spring破坏双亲委派模型" class="headerlink" title="Spring破坏双亲委派模型"></a>Spring破坏双亲委派模型</h5><p>​    Spring要对用户程序进行组织和管理，而用户程序一般放在WEB-INF目录下，由WebAppClassLoader类加载器加载，而Spring由Common类加载器或Shared类加载器加载。<br>​    那么Spring是如何访问WEB-INF下的用户程序呢？<br>​    使用线程上下文类加载器。 Spring加载类所用的classLoader都是通过Thread.currentThread().getContextClassLoader()获取的。当线程创建时会默认创建一个AppClassLoader类加载器（对应Tomcat中的WebAppclassLoader类加载器）： setContextClassLoader(AppClassLoader)。<br>利用这个来加载用户程序。即任何一个线程都可通过getContextClassLoader()获取到WebAppclassLoader。</p>
-<h5 id="Tomcat类加载架构"><a href="#Tomcat类加载架构" class="headerlink" title="Tomcat类加载架构"></a>Tomcat类加载架构</h5><p><img src="https://lemon9610.github.io/assets/bkimg/tomcat%E7%B1%BB%E5%8A%A0%E8%BD%BD.png" alt="tomcat类加载"></p>
+<h5 id="Tomcat类加载架构"><a href="#Tomcat类加载架构" class="headerlink" title="Tomcat类加载架构"></a>Tomcat类加载架构</h5><p><img src="https://lemon9610.github.io/bkimg/tomcat%E7%B1%BB%E5%8A%A0%E8%BD%BD.png" alt="tomcat类加载"></p>
 <p>Tomcat目录下有4组目录：</p>
 <ul>
 <li>/common目录下：类库可以被Tomcat和Web应用程序共同使用；由 Common ClassLoader类加载器加载目录下的类库；</li>
@@ -578,15 +578,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">学习笔记</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">计划</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Zookeeper</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">学习笔记</a>
               </li>
              
               <li class="article-tag-list-item">

@@ -9,20 +9,20 @@
   <title>Zookeeper一揽子计划（一） | Lemon</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="主要内容：Zookeeper知识的复习，这一部分记录了Zookeeper的概念，特点，角色，数据模型。">
-<meta name="keywords" content="学习笔记,Zookeeper">
+<meta name="keywords" content="Zookeeper,学习笔记">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Zookeeper一揽子计划（一）">
 <meta property="og:url" content="https://lemon9610.github.io/2019/08/14/Zookeeper一揽子计划（一）/index.html">
 <meta property="og:site_name" content="Lemon">
 <meta property="og:description" content="主要内容：Zookeeper知识的复习，这一部分记录了Zookeeper的概念，特点，角色，数据模型。">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://lemon9610.github.io/assets/bkimg/Zookeeper%E9%9B%86%E7%BE%A4%E8%A7%92%E8%89%B2.jpg">
-<meta property="og:image" content="https://lemon9610.github.io/assets/bkimg/Zookeeper%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84.png">
-<meta property="og:updated_time" content="2019-08-21T10:40:32.764Z">
+<meta property="og:image" content="https://lemon9610.github.io/bkimg/Zookeeper%E9%9B%86%E7%BE%A4%E8%A7%92%E8%89%B2.jpg">
+<meta property="og:image" content="https://lemon9610.github.io/bkimg/Zookeeper%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84.png">
+<meta property="og:updated_time" content="2019-08-22T06:55:26.592Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Zookeeper一揽子计划（一）">
 <meta name="twitter:description" content="主要内容：Zookeeper知识的复习，这一部分记录了Zookeeper的概念，特点，角色，数据模型。">
-<meta name="twitter:image" content="https://lemon9610.github.io/assets/bkimg/Zookeeper%E9%9B%86%E7%BE%A4%E8%A7%92%E8%89%B2.jpg">
+<meta name="twitter:image" content="https://lemon9610.github.io/bkimg/Zookeeper%E9%9B%86%E7%BE%A4%E8%A7%92%E8%89%B2.jpg">
   
     <link rel="alternative" href="/atom.xml" title="Lemon" type="application/atom+xml">
   
@@ -202,7 +202,7 @@
 <li>数据更新原子性：一次数据更新要么成功（半数以上节点成功），要么失败，不存在中间状态； </li>
 <li>实时性：Zookeeper 保证客户端将在一个时间间隔范围内获得服务器的更新信息，或者服务器失效的信息。 </li>
 </ul>
-<h2 id="4、Zookeeper中的角色"><a href="#4、Zookeeper中的角色" class="headerlink" title="4、Zookeeper中的角色"></a>4、Zookeeper中的角色</h2><p><img src="https://lemon9610.github.io/assets/bkimg/Zookeeper%E9%9B%86%E7%BE%A4%E8%A7%92%E8%89%B2.jpg" alt="Zookeeper集群角色"></p>
+<h2 id="4、Zookeeper中的角色"><a href="#4、Zookeeper中的角色" class="headerlink" title="4、Zookeeper中的角色"></a>4、Zookeeper中的角色</h2><p><img src="https://lemon9610.github.io/bkimg/Zookeeper%E9%9B%86%E7%BE%A4%E8%A7%92%E8%89%B2.jpg" alt="Zookeeper集群角色"></p>
 <h3 id="4-1Leader"><a href="#4-1Leader" class="headerlink" title="4.1Leader:"></a>4.1Leader:</h3><ol>
 <li>Zookeeper 集群工作的核心 </li>
 <li>事务请求（写操作）的唯一调度和处理者，保证集群事务处理的顺序性； </li>
@@ -221,7 +221,7 @@
 <p>​    使用observer模式的一个主要的理由就是<strong>对读请求进行扩展</strong>。通过增加更多的observer，可以接收更多的请求的流量，却不会牺牲写操作的吞吐量。注意到写操作的吞吐量取决于集群的size。如果增加更多的server进行投票，集群会变大，这会降低写操作的吞吐量。然而增加observer并不会完全没有损耗，每一个新的observer在每提交一个事务后收到一条额外的消息，这就是下面要提到的INFORM消息。这个损耗比起加入follower来投票来说损耗更少。</p>
 <p>​    使用observer的另一个原因是<strong>跨数据中心部署。</strong>把节点分散到多个数据中心可能会极大拖慢系统，因为数据中心之间的网络的延迟。使用observer的话，更新操作都在一个单独的数据中心来处理，并发送到其他数据中心，让其他数据中心的client消费数据。阿里开源的跨机房同步系统Otter就使用了observer模式，可以参考。 </p>
 <p>​    注意observer的使用并无法完全消除数据中心之间的网络延迟，因为observer不得不把更新请求转发到另一个数据中心的leader，并处理INFORM消息，网络速度极慢的话也会有影响，它的优势是为本地读请求提供快速响应。</p>
-<h2 id="5、Zookeeper的数据模型"><a href="#5、Zookeeper的数据模型" class="headerlink" title="5、Zookeeper的数据模型"></a>5、Zookeeper的数据模型</h2><h3 id="5-1数据结构图："><a href="#5-1数据结构图：" class="headerlink" title="5.1数据结构图："></a>5.1数据结构图：</h3><p><img src="https://lemon9610.github.io/assets/bkimg/Zookeeper%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84.png" alt="Zookeeper数据结构"></p>
+<h2 id="5、Zookeeper的数据模型"><a href="#5、Zookeeper的数据模型" class="headerlink" title="5、Zookeeper的数据模型"></a>5、Zookeeper的数据模型</h2><h3 id="5-1数据结构图："><a href="#5-1数据结构图：" class="headerlink" title="5.1数据结构图："></a>5.1数据结构图：</h3><p><img src="https://lemon9610.github.io/bkimg/Zookeeper%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84.png" alt="Zookeeper数据结构"></p>
 <p>图中的每个节点称为一个 Znode。 每个 Znode 由 3 部分组成:<br>① stat：状态信息, 描述该 Znode 的版本,ACL权限控制，修改/访问时间、最后一次操作的事务Id(zxid)等信息。<br>② data：与该 Znode 关联的数据<br>③ children：该 Znode 下的子节点 </p>
 <p>每次对Znode节点修改都是保证顺序和原子性的操作。写操作是原子性操作。</p>
 <p>举个例子，在注册中心中，可以通过路径”/soa/服务名1/providers”找到”服务1”的所有 提供者。</p>
@@ -299,11 +299,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Zookeeper</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Zookeeper</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
         		</li>
       		
 		</ul>
@@ -383,8 +383,8 @@
     </a>
   
   
-    <a href="/2019/08/12/ehcache、memcache、redis三大缓存比较/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">ehcache、memcache、redis三大缓存比较</div>
+    <a href="/2019/08/12/CAP原理/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">CAP原则介绍</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -570,15 +570,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">学习笔记</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">计划</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Zookeeper</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">学习笔记</a>
               </li>
              
               <li class="article-tag-list-item">
