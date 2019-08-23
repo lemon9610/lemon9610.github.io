@@ -6,20 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://lemon9610.github.io">
-  <title>JavaWeb获取客户端IP，MAC脱坑 | Lemon</title>
+  <title>设计模式之七大设计原则 | Lemon</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="主要内容：整理了自己获取WEB客户端IP和MAC代码。">
-<meta name="keywords" content="学习笔记">
+  <meta name="description" content="主要内容：设计模式的七大设计原则">
+<meta name="keywords" content="学习笔记,设计模式">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JavaWeb获取客户端IP，MAC脱坑">
-<meta property="og:url" content="https://lemon9610.github.io/2019/08/12/JavaWeb获取客户端IP，MAC脱坑/index.html">
+<meta property="og:title" content="设计模式之七大设计原则">
+<meta property="og:url" content="https://lemon9610.github.io/2019/08/13/设计模式之七大设计原则/index.html">
 <meta property="og:site_name" content="Lemon">
-<meta property="og:description" content="主要内容：整理了自己获取WEB客户端IP和MAC代码。">
+<meta property="og:description" content="主要内容：设计模式的七大设计原则">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-08-13T06:27:31.334Z">
+<meta property="og:updated_time" content="2019-08-23T01:10:05.670Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JavaWeb获取客户端IP，MAC脱坑">
-<meta name="twitter:description" content="主要内容：整理了自己获取WEB客户端IP和MAC代码。">
+<meta name="twitter:title" content="设计模式之七大设计原则">
+<meta name="twitter:description" content="主要内容：设计模式的七大设计原则">
   
     <link rel="alternative" href="/atom.xml" title="Lemon" type="application/atom+xml">
   
@@ -167,54 +167,102 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-JavaWeb获取客户端IP，MAC脱坑" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-设计模式之七大设计原则" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         <center><p>
   
     <h1 class="article-title_code_ant" itemprop="name">
-      JavaWeb获取客户端IP，MAC脱坑
+      设计模式之七大设计原则
     </h1>
   
 </p></center>
         
-        <a href="/2019/08/12/JavaWeb获取客户端IP，MAC脱坑/" class="archive-article-date">
-  	<time datetime="2019-08-11T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-12</time>
+        <a href="/2019/08/13/设计模式之七大设计原则/" class="archive-article-date">
+  	<time datetime="2019-08-13T05:35:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-13</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="主要内容："><a href="#主要内容：" class="headerlink" title="主要内容："></a>主要内容：</h4><p>整理了自己获取WEB客户端IP和MAC代码。</p>
+        <h4 id="主要内容："><a href="#主要内容：" class="headerlink" title="主要内容："></a>主要内容：</h4><p>设计模式的七大设计原则</p>
 <a id="more"></a>
 
-<h1 id="JavaWeb获取客户端IP，MAC脱坑"><a href="#JavaWeb获取客户端IP，MAC脱坑" class="headerlink" title="JavaWeb获取客户端IP，MAC脱坑"></a>JavaWeb获取客户端IP，MAC脱坑</h1><p>1、在拿IP的时候会遇到代理的问题，用下面的方式解决</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">getIpAdrress</span><span class="params">(HttpServletRequest request)</span> </span>&#123;</span><br><span class="line">       String ip = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">       <span class="comment">//X-Forwarded-For：Squid 服务代理</span></span><br><span class="line">       String ipAddresses = request.getHeader(<span class="string">"X-Forwarded-For"</span>);</span><br><span class="line">       String unknown = <span class="string">"unknown"</span>;</span><br><span class="line">       <span class="keyword">if</span> (ipAddresses == <span class="keyword">null</span> || ipAddresses.length() == <span class="number">0</span> || unknown.equalsIgnoreCase(ipAddresses)) &#123;</span><br><span class="line">           <span class="comment">//Proxy-Client-IP：apache 服务代理</span></span><br><span class="line">           ipAddresses = request.getHeader(<span class="string">"Proxy-Client-IP"</span>);</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       <span class="keyword">if</span> (ipAddresses == <span class="keyword">null</span> || ipAddresses.length() == <span class="number">0</span> || unknown.equalsIgnoreCase(ipAddresses)) &#123;</span><br><span class="line">           <span class="comment">//WL-Proxy-Client-IP：weblogic 服务代理</span></span><br><span class="line">           ipAddresses = request.getHeader(<span class="string">"WL-Proxy-Client-IP"</span>);</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       <span class="keyword">if</span> (ipAddresses == <span class="keyword">null</span> || ipAddresses.length() == <span class="number">0</span> || unknown.equalsIgnoreCase(ipAddresses)) &#123;</span><br><span class="line">           <span class="comment">//HTTP_CLIENT_IP：有些代理服务器</span></span><br><span class="line">           ipAddresses = request.getHeader(<span class="string">"HTTP_CLIENT_IP"</span>);</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       <span class="keyword">if</span> (ipAddresses == <span class="keyword">null</span> || ipAddresses.length() == <span class="number">0</span> || unknown.equalsIgnoreCase(ipAddresses)) &#123;</span><br><span class="line">           <span class="comment">//X-Real-IP：nginx服务代理</span></span><br><span class="line">           ipAddresses = request.getHeader(<span class="string">"X-Real-IP"</span>);</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       <span class="comment">//有些网络通过多层代理，那么获取到的ip就会有多个，一般都是通过逗号（,）分割开来，并且第一个ip为客户端的真实IP</span></span><br><span class="line">       <span class="keyword">if</span> (ipAddresses != <span class="keyword">null</span> &amp;&amp; ipAddresses.length() != <span class="number">0</span>) &#123;</span><br><span class="line">           ip = ipAddresses.split(<span class="string">","</span>)[<span class="number">0</span>];</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       <span class="comment">//还是不能获取到，最后再通过request.getRemoteAddr();获取</span></span><br><span class="line">       <span class="keyword">if</span> (ip == <span class="keyword">null</span> || ip.length() == <span class="number">0</span> || unknown.equalsIgnoreCase(ipAddresses)) &#123;</span><br><span class="line">           ip = request.getRemoteAddr();</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">return</span> ip;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-
-<p>2、拿MAC地址的原理是使用doc命令，解析返回的信息。这里使用的是<code>nbtstat -a -ip</code>这个命令。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span>  <span class="keyword">static</span>  String <span class="title">getMacAddrByIp</span><span class="params">(String ip)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">       String macAddr = <span class="keyword">null</span>;</span><br><span class="line">       <span class="keyword">try</span> &#123;</span><br><span class="line">           Process process = Runtime.getRuntime().exec(<span class="string">"nbtstat -a "</span> + ip);</span><br><span class="line">           BufferedReader br = <span class="keyword">new</span> BufferedReader(</span><br><span class="line">                   <span class="keyword">new</span> InputStreamReader(process.getInputStream()));</span><br><span class="line">           Pattern pattern = Pattern.compile(<span class="string">"([A-F0-9]&#123;2&#125;-)&#123;5&#125;[A-F0-9]&#123;2&#125;"</span>);</span><br><span class="line">           Matcher matcher;</span><br><span class="line">           <span class="keyword">for</span> (String strLine = br.readLine(); strLine != <span class="keyword">null</span>;</span><br><span class="line">                strLine = br.readLine()) &#123;</span><br><span class="line">               matcher = pattern.matcher(strLine);</span><br><span class="line">               <span class="keyword">if</span> (matcher.find()) &#123;</span><br><span class="line">                   macAddr = matcher.group();</span><br><span class="line">                   <span class="keyword">break</span>;</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">           e.printStackTrace();</span><br><span class="line">       &#125;</span><br><span class="line">       System.out.println(macAddr);</span><br><span class="line">       <span class="keyword">return</span> macAddr;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-
-<p>arp -a 月nbtstat -a的区别？</p>
+<h1 id="设计模式之七大设计原则"><a href="#设计模式之七大设计原则" class="headerlink" title="设计模式之七大设计原则"></a>设计模式之七大设计原则</h1><h2 id="1、设计模式的目的"><a href="#1、设计模式的目的" class="headerlink" title="1、设计模式的目的"></a>1、设计模式的目的</h2><p>1)   代码重用性</p>
+<p>2）可读性（编码规范，方便其他程序员阅读）</p>
+<p>3）可扩展性（增加新功能时，方便维护）</p>
+<p>4）可靠性（添加新功能后，对原来的功能没有影响）</p>
+<p>5）程序呈现高内聚，低耦合的特性</p>
+<h2 id="2、设计模式七大原则"><a href="#2、设计模式七大原则" class="headerlink" title="2、设计模式七大原则"></a>2、设计模式七大原则</h2><p>设计模式常见的七大准则有：单一职责原则，接口隔离原则，依赖倒转原则，里氏替换原则，开闭原则，迪米特法则，合成复用原则。</p>
+<h4 id="2-1单一职责原则"><a href="#2-1单一职责原则" class="headerlink" title="2.1单一职责原则"></a>2.1单一职责原则</h4><p>基本介绍：对于一个类而言，一个类应该只负责一项职责。</p>
+<p>实现：将一个类（方法）中的多项职责拆分成多个类（方法）。</p>
+<p>注意事项和细节：</p>
 <ol>
-<li>arp只能是同网段（局域网内同一个VLAN）。</li>
-<li>nbtstat是netbios扫描，可以跨网段，但是一般不能跨局域网。（除非对方没有通过路由器直接接在公网上）</li>
+<li>降低类的复杂度，一个类只负责一项职责</li>
+<li>当逻辑足够简单，且类中的方法足够少，可以在方法级别保持单一职责。</li>
 </ol>
-<p>大体而言，根据ip查mac基本上是只能查本地局域网。</p>
-<p>获取不到的问题？</p>
+<h4 id="2-2接口隔离原则"><a href="#2-2接口隔离原则" class="headerlink" title="2.2接口隔离原则"></a>2.2接口隔离原则</h4><p>基本介绍：一个类对另一个类的依赖应该建立在最小接口上</p>
+<p>实现：类A通过接口I依赖类B，但是接口I对于类B不是最小接口，则需要拆分接口I。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//将接口拆分成三个接口</span></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">InterfaceI1</span>｛</span></span><br><span class="line"><span class="class">    <span class="title">void</span> <span class="title">Option1</span>（）；</span></span><br><span class="line"><span class="class">    ｝</span></span><br><span class="line"><span class="class"><span class="title">interface</span> <span class="title">InterfaceI2</span>｛</span></span><br><span class="line"><span class="class">    <span class="title">void</span> <span class="title">Option2</span>（）；</span></span><br><span class="line"><span class="class">    ｝</span></span><br><span class="line"><span class="class"><span class="title">interface</span> <span class="title">InterfaceI3</span>｛</span></span><br><span class="line"><span class="class">    <span class="title">void</span> <span class="title">Option3</span>（）；</span></span><br><span class="line"><span class="class">    ｝</span></span><br><span class="line"><span class="class">//类<span class="title">B</span>实现最小接口</span></span><br><span class="line"><span class="class"><span class="title">class</span> <span class="title">B</span> <span class="title">implement</span> <span class="title">InterfaceI1</span>，<span class="title">InterfaceI2</span>｛</span></span><br><span class="line"><span class="class">    //实现接口的方法</span></span><br><span class="line"><span class="class">    ｝</span></span><br><span class="line"><span class="class">//类<span class="title">A</span>依赖类<span class="title">B</span></span></span><br><span class="line"><span class="class"><span class="title">class</span> <span class="title">A</span>｛</span></span><br><span class="line"><span class="class">    <span class="title">public</span> <span class="title">void</span> <span class="title">method1</span>（<span class="title">InterfaceI1</span> <span class="title">i</span>）｛</span></span><br><span class="line"><span class="class">    	<span class="title">i</span>.<span class="title">Option1</span>()</span>;</span><br><span class="line">    	｝</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> method2（InterfaceI2 i）｛</span><br><span class="line">    	i.Option2();</span><br><span class="line">    	｝</span><br><span class="line">    ｝</span><br><span class="line"><span class="comment">//调用类A的方法</span></span><br><span class="line">A a = <span class="keyword">new</span> A（）；</span><br><span class="line">a.method1(<span class="keyword">new</span> B);</span><br><span class="line">a.method2(<span class="keyword">new</span> B);</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-3依赖倒转原则"><a href="#2-3依赖倒转原则" class="headerlink" title="2.3依赖倒转原则"></a>2.3依赖倒转原则</h4><p>基本介绍：</p>
 <ul>
-<li><p>网线没连接好，先看看能否ping 通</p>
-</li>
-<li><p>是否在策略组设置了禁止外部访问获取的权限</p>
-</li>
-<li><p>是否防火墙拦截</p>
-</li>
-<li><p>是否中病毒，或者有防水坝系统等拦截</p>
-</li>
-<li><p><strong>重点解决方案（能ping通却获取不到）</strong></p>
-<p><code>针对这样的情况，我们可以通过ping ip之后用arp -a ip 命令来获取。</code></p>
-</li>
+<li>高层模块不应该依赖低层模块，二者依赖其接口</li>
+<li>抽象不该依赖细节，细节依赖抽象</li>
+<li>依赖倒转的中心思想就是<code>面向接口编程</code></li>
+</ul>
+<p>设计理念：在java中，抽象指的是接口或者抽象类，细节是具体的实现类。抽象的东西要比细节稳定。我们写好接口或者抽象类的目的是制定好规范，把细节展示的部分交给实现类完成。</p>
+<p>举例说明：以Person接受消息为例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">person.receive（<span class="keyword">new</span> Email（））；</span><br><span class="line">person.receive（<span class="keyword">new</span> weixin（））；</span><br></pre></td></tr></table></figure>
+
+<p>person类是高层模块，Email和weixin是低层模块，为了符合原则，需要将Email和weixin都实现一个接口，让高层模块依赖这个接口。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Interface Message｛｝；</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Email</span> <span class="title">implement</span> <span class="title">Message</span>｛｝；</span></span><br><span class="line"><span class="class"><span class="title">class</span> <span class="title">weixin</span> <span class="title">implement</span> <span class="title">Message</span>｛｝；</span></span><br><span class="line"><span class="class"><span class="title">person</span>.<span class="title">receive</span>（<span class="title">new</span> <span class="title">Message</span>（））；</span></span><br></pre></td></tr></table></figure>
+
+<p>依赖关系传递的三种方式：</p>
+<p><code>接口传递</code>，<code>构造方法传递</code>，<code>setter方式传递</code>。</p>
+<h4 id="2-4里氏替换原则"><a href="#2-4里氏替换原则" class="headerlink" title="2.4里氏替换原则"></a>2.4里氏替换原则</h4><p>基本介绍：</p>
+<ul>
+<li>使用父类的地方换成 子类后不影响方法的使用。</li>
+<li>使用继承时，遵循里氏替换原则，在<code>子类中尽量不重写父类的方法</code>。</li>
+<li>继承其实让两个类耦合性增强了，可以通过聚合、组合、依赖来解决问题。</li>
+</ul>
+<p>设计理念：</p>
+<p>原来的父类和子类继承一个更通俗的基类，将原有的继承关系去掉，采用依赖、聚合、组合等关系替代。使用父类的方法可以在子类中实例化一个父类对象。</p>
+<p>举例说明：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">base</span></span>&#123;&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">father</span> <span class="title">extend</span> <span class="title">base</span></span>&#123;&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">son</span> <span class="title">extend</span> <span class="title">base</span></span>&#123; father fa = <span class="keyword">new</span> father()&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-5开闭原则"><a href="#2-5开闭原则" class="headerlink" title="2.5开闭原则"></a>2.5开闭原则</h4><p>基本介绍：</p>
+<ul>
+<li>一个实体类的模块或者函数应该对扩展开放（对提供方），对修改关闭（对使用方）。用抽象构建框架，用实现扩展细节。</li>
+<li>当软件需要修改的时候，尽量通过<code>扩展软件实体</code>来实现修改，而不是修改现有的代码来完成。</li>
+<li>编程中遵循其他原则，以及使用设计模式的目的就是遵循开闭原则，开闭原则是最基础，最重要的原则。</li>
+</ul>
+<p>设计理念：</p>
+<p>把基础的实体类做成抽象类，提供抽象方法供子类实现。</p>
+<h4 id="2-6迪米特法则"><a href="#2-6迪米特法则" class="headerlink" title="2.6迪米特法则"></a>2.6迪米特法则</h4><p>基本介绍：</p>
+<ul>
+<li>一个对象应该对其他对象保持最少了解</li>
+<li>类与类关系越密切，耦合越大</li>
+<li>迪米特原则又称为最少知道原则，即一个类对自己依赖的类知道的越少越好。被依赖的类尽量把逻辑封装在类的内部，不要在依赖的类中实现被依赖类的逻辑，被依赖的类除了提供public方法外，不要泄露任何信息。</li>
+<li>迪米特原则要求类只与直接的朋友通信。</li>
+<li>直接朋友：存在耦合关系则这两个对象成为朋友，出现成员变量，方法参数，方法返回值中的类成为直接朋友，出现在局部变量的形式不是直接朋友。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a1;</span><br><span class="line">    <span class="keyword">int</span> b1;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> A <span class="title">get</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">C</span></span>&#123;</span><br><span class="line">    B b = <span class="keyword">new</span> B();</span><br><span class="line">    A a = b.get();</span><br><span class="line">    system.out.print（a.a1+a.b1）;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//在C类中，B是C的直接朋友，A不是C的直接朋友。不符合迪米特法则</span></span><br></pre></td></tr></table></figure>
+
+<p>改进方向：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a1;</span><br><span class="line">    <span class="keyword">int</span> b1;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> A <span class="title">get</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> print（）&#123;</span><br><span class="line">        A a = <span class="keyword">new</span> A();</span><br><span class="line">        system.out.print（a.a1+a.b1）;</span><br><span class="line">    &#125;；</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">C</span></span>&#123;</span><br><span class="line">    B b = <span class="keyword">new</span> B();</span><br><span class="line">    b.print();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意事项：</p>
+<p>​    迪米特原则核心是降低类之间的耦合，只是降低，并不是要求完全没有依赖</p>
+<h4 id="2-7合成复用原则"><a href="#2-7合成复用原则" class="headerlink" title="2.7合成复用原则"></a>2.7合成复用原则</h4><p>基本介绍：</p>
+<p>​    原则是尽量使用合成/聚合方式，而不是使用继承</p>
+<p>设计理念：</p>
+<ul>
+<li>划分代码内容，将应用中需要变化的代码独立出来，不要和不需要变化的代码混在一起</li>
+<li>针对接口编程，而不是针对实现编程</li>
+<li>为交互之间松耦合设计而努力</li>
 </ul>
 
       
@@ -261,6 +309,10 @@
 			 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
         		</li>
       		
 		</ul>
@@ -316,7 +368,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://lemon9610.github.io/2019/08/12/JavaWeb获取客户端IP，MAC脱坑/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://lemon9610.github.io/2019/08/13/设计模式之七大设计原则/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -330,18 +382,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/08/12/CAP原理/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/08/13/设计模式之UMl类图介绍/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          CAP原则介绍
+          设计模式之UMl类图介绍
         
       </div>
     </a>
   
   
-    <a href="/2019/08/12/记19812/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">记19/8/12</div>
+    <a href="/2019/08/12/ehcache、memcache、redis三大缓存比较/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">ehcache、memcache、redis三大缓存比较</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -368,7 +420,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#主要内容："><span class="toc-number">1.</span> <span class="toc-text">主要内容：</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#JavaWeb获取客户端IP，MAC脱坑"><span class="toc-number"></span> <span class="toc-text">JavaWeb获取客户端IP，MAC脱坑</span></a>
+                    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#主要内容："><span class="toc-number">1.</span> <span class="toc-text">主要内容：</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#设计模式之七大设计原则"><span class="toc-number"></span> <span class="toc-text">设计模式之七大设计原则</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、设计模式的目的"><span class="toc-number"></span> <span class="toc-text">1、设计模式的目的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、设计模式七大原则"><span class="toc-number"></span> <span class="toc-text">2、设计模式七大原则</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1单一职责原则"><span class="toc-number">1.</span> <span class="toc-text">2.1单一职责原则</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2接口隔离原则"><span class="toc-number">2.</span> <span class="toc-text">2.2接口隔离原则</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3依赖倒转原则"><span class="toc-number">3.</span> <span class="toc-text">2.3依赖倒转原则</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4里氏替换原则"><span class="toc-number">4.</span> <span class="toc-text">2.4里氏替换原则</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-5开闭原则"><span class="toc-number">5.</span> <span class="toc-text">2.5开闭原则</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-6迪米特法则"><span class="toc-number">6.</span> <span class="toc-text">2.6迪米特法则</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-7合成复用原则"><span class="toc-number">7.</span> <span class="toc-text">2.7合成复用原则</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -382,7 +434,7 @@
   
   <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="JavaWeb获取客户端IP，MAC脱坑" data-title="JavaWeb获取客户端IP，MAC脱坑" data-url="https://lemon9610.github.io/2019/08/12/JavaWeb获取客户端IP，MAC脱坑/"></div>
+	<div class="ds-thread" data-thread-key="设计模式之七大设计原则" data-title="设计模式之七大设计原则" data-url="https://lemon9610.github.io/2019/08/13/设计模式之七大设计原则/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
@@ -405,8 +457,8 @@
   <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
 <script>
   var cloudTieConfig = {
-    url: "https://lemon9610.github.io/2019/08/12/JavaWeb获取客户端IP，MAC脱坑/", 
-    sourceId: "JavaWeb获取客户端IP，MAC脱坑",
+    url: "https://lemon9610.github.io/2019/08/13/设计模式之七大设计原则/", 
+    sourceId: "设计模式之七大设计原则",
     productKey: "true",
     target: "cloud-tie-wrapper"
   };
@@ -415,7 +467,7 @@
   
 
   
-  <div id="SOHUCS" sid="JavaWeb获取客户端IP，MAC脱坑" ></div> 
+  <div id="SOHUCS" sid="设计模式之七大设计原则" ></div> 
 <script charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/changyan.js" ></script>
 <script type="text/javascript">
     window.changyan.api.config({

@@ -6,20 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://lemon9610.github.io">
-  <title>JavaWeb获取客户端IP，MAC脱坑 | Lemon</title>
+  <title>枚举的实现——Enum类 | Lemon</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="主要内容：整理了自己获取WEB客户端IP和MAC代码。">
-<meta name="keywords" content="学习笔记">
+  <meta name="description" content="主要内容：看单例模式时注意到枚举的使用，所以学习一下枚举的实现">
+<meta name="keywords" content="学习笔记,Java">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JavaWeb获取客户端IP，MAC脱坑">
-<meta property="og:url" content="https://lemon9610.github.io/2019/08/12/JavaWeb获取客户端IP，MAC脱坑/index.html">
+<meta property="og:title" content="枚举的实现——Enum类">
+<meta property="og:url" content="https://lemon9610.github.io/2019/08/12/枚举的实现——Enum类/index.html">
 <meta property="og:site_name" content="Lemon">
-<meta property="og:description" content="主要内容：整理了自己获取WEB客户端IP和MAC代码。">
+<meta property="og:description" content="主要内容：看单例模式时注意到枚举的使用，所以学习一下枚举的实现">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-08-13T06:27:31.334Z">
+<meta property="og:updated_time" content="2019-08-23T01:15:39.150Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JavaWeb获取客户端IP，MAC脱坑">
-<meta name="twitter:description" content="主要内容：整理了自己获取WEB客户端IP和MAC代码。">
+<meta name="twitter:title" content="枚举的实现——Enum类">
+<meta name="twitter:description" content="主要内容：看单例模式时注意到枚举的使用，所以学习一下枚举的实现">
   
     <link rel="alternative" href="/atom.xml" title="Lemon" type="application/atom+xml">
   
@@ -167,55 +167,50 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-JavaWeb获取客户端IP，MAC脱坑" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-枚举的实现——Enum类" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         <center><p>
   
     <h1 class="article-title_code_ant" itemprop="name">
-      JavaWeb获取客户端IP，MAC脱坑
+      枚举的实现——Enum类
     </h1>
   
 </p></center>
         
-        <a href="/2019/08/12/JavaWeb获取客户端IP，MAC脱坑/" class="archive-article-date">
-  	<time datetime="2019-08-11T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-12</time>
+        <a href="/2019/08/12/枚举的实现——Enum类/" class="archive-article-date">
+  	<time datetime="2019-08-12T05:35:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-12</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="主要内容："><a href="#主要内容：" class="headerlink" title="主要内容："></a>主要内容：</h4><p>整理了自己获取WEB客户端IP和MAC代码。</p>
+        <h4 id="主要内容："><a href="#主要内容：" class="headerlink" title="主要内容："></a>主要内容：</h4><p>看单例模式时注意到枚举的使用，所以学习一下枚举的实现</p>
 <a id="more"></a>
 
-<h1 id="JavaWeb获取客户端IP，MAC脱坑"><a href="#JavaWeb获取客户端IP，MAC脱坑" class="headerlink" title="JavaWeb获取客户端IP，MAC脱坑"></a>JavaWeb获取客户端IP，MAC脱坑</h1><p>1、在拿IP的时候会遇到代理的问题，用下面的方式解决</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">getIpAdrress</span><span class="params">(HttpServletRequest request)</span> </span>&#123;</span><br><span class="line">       String ip = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">       <span class="comment">//X-Forwarded-For：Squid 服务代理</span></span><br><span class="line">       String ipAddresses = request.getHeader(<span class="string">"X-Forwarded-For"</span>);</span><br><span class="line">       String unknown = <span class="string">"unknown"</span>;</span><br><span class="line">       <span class="keyword">if</span> (ipAddresses == <span class="keyword">null</span> || ipAddresses.length() == <span class="number">0</span> || unknown.equalsIgnoreCase(ipAddresses)) &#123;</span><br><span class="line">           <span class="comment">//Proxy-Client-IP：apache 服务代理</span></span><br><span class="line">           ipAddresses = request.getHeader(<span class="string">"Proxy-Client-IP"</span>);</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       <span class="keyword">if</span> (ipAddresses == <span class="keyword">null</span> || ipAddresses.length() == <span class="number">0</span> || unknown.equalsIgnoreCase(ipAddresses)) &#123;</span><br><span class="line">           <span class="comment">//WL-Proxy-Client-IP：weblogic 服务代理</span></span><br><span class="line">           ipAddresses = request.getHeader(<span class="string">"WL-Proxy-Client-IP"</span>);</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       <span class="keyword">if</span> (ipAddresses == <span class="keyword">null</span> || ipAddresses.length() == <span class="number">0</span> || unknown.equalsIgnoreCase(ipAddresses)) &#123;</span><br><span class="line">           <span class="comment">//HTTP_CLIENT_IP：有些代理服务器</span></span><br><span class="line">           ipAddresses = request.getHeader(<span class="string">"HTTP_CLIENT_IP"</span>);</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       <span class="keyword">if</span> (ipAddresses == <span class="keyword">null</span> || ipAddresses.length() == <span class="number">0</span> || unknown.equalsIgnoreCase(ipAddresses)) &#123;</span><br><span class="line">           <span class="comment">//X-Real-IP：nginx服务代理</span></span><br><span class="line">           ipAddresses = request.getHeader(<span class="string">"X-Real-IP"</span>);</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       <span class="comment">//有些网络通过多层代理，那么获取到的ip就会有多个，一般都是通过逗号（,）分割开来，并且第一个ip为客户端的真实IP</span></span><br><span class="line">       <span class="keyword">if</span> (ipAddresses != <span class="keyword">null</span> &amp;&amp; ipAddresses.length() != <span class="number">0</span>) &#123;</span><br><span class="line">           ip = ipAddresses.split(<span class="string">","</span>)[<span class="number">0</span>];</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       <span class="comment">//还是不能获取到，最后再通过request.getRemoteAddr();获取</span></span><br><span class="line">       <span class="keyword">if</span> (ip == <span class="keyword">null</span> || ip.length() == <span class="number">0</span> || unknown.equalsIgnoreCase(ipAddresses)) &#123;</span><br><span class="line">           ip = request.getRemoteAddr();</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">return</span> ip;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<h1 id="枚举的实现——Enum类"><a href="#枚举的实现——Enum类" class="headerlink" title="枚举的实现——Enum类"></a>枚举的实现——Enum类</h1><p>转载地址：<a href="https://www.cnblogs.com/ygj0930/p/10843644.html" target="_blank" rel="noopener">https://www.cnblogs.com/ygj0930/p/10843644.html</a></p>
+<h3 id="枚举的实现"><a href="#枚举的实现" class="headerlink" title="枚举的实现"></a>枚举的实现</h3><p>​    enum这个关键字，包含了：<code>继承Enum类，定义当前类</code>的意思，所创建的类型都是 java.lang.Enum 类的<code>子类</code>。</p>
+<p>　　虽然都是定义类，但是enum关键字和class关键字的约束行为不同，class定义的类，通过new操作创建对象，想new几个就几个，而enum关键字定义的类，其实例对象，只能在这个enum类中定义好，它的实例是有限的，限制了某些东西的范围。</p>
+<p>　　如果我们不自定义枚举类的成员变量和构造方法，只定义枚举实例，则枚举实例内容都将以字符串的形式存在，在类加载的时候会通过 <code>protected Enum(String name, int ordinal)</code> 构造函数被创建为基本的Enum实例。　</p>
+<p>　　回到第一点中的第一个用法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> EnumTest &#123;</span><br><span class="line">    MON, TUE, WED, THU, FRI, SAT, SUN;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>2、拿MAC地址的原理是使用doc命令，解析返回的信息。这里使用的是<code>nbtstat -a -ip</code>这个命令。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span>  <span class="keyword">static</span>  String <span class="title">getMacAddrByIp</span><span class="params">(String ip)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">       String macAddr = <span class="keyword">null</span>;</span><br><span class="line">       <span class="keyword">try</span> &#123;</span><br><span class="line">           Process process = Runtime.getRuntime().exec(<span class="string">"nbtstat -a "</span> + ip);</span><br><span class="line">           BufferedReader br = <span class="keyword">new</span> BufferedReader(</span><br><span class="line">                   <span class="keyword">new</span> InputStreamReader(process.getInputStream()));</span><br><span class="line">           Pattern pattern = Pattern.compile(<span class="string">"([A-F0-9]&#123;2&#125;-)&#123;5&#125;[A-F0-9]&#123;2&#125;"</span>);</span><br><span class="line">           Matcher matcher;</span><br><span class="line">           <span class="keyword">for</span> (String strLine = br.readLine(); strLine != <span class="keyword">null</span>;</span><br><span class="line">                strLine = br.readLine()) &#123;</span><br><span class="line">               matcher = pattern.matcher(strLine);</span><br><span class="line">               <span class="keyword">if</span> (matcher.find()) &#123;</span><br><span class="line">                   macAddr = matcher.group();</span><br><span class="line">                   <span class="keyword">break</span>;</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">           e.printStackTrace();</span><br><span class="line">       &#125;</span><br><span class="line">       System.out.println(macAddr);</span><br><span class="line">       <span class="keyword">return</span> macAddr;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p>　　其解释过程为：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> Enum&lt;EnumTest&gt;(<span class="string">"MON"</span>,<span class="number">0</span>);</span><br><span class="line"><span class="keyword">new</span> Enum&lt;EnumTest&gt;(<span class="string">"TUE"</span>,<span class="number">1</span>);</span><br><span class="line"><span class="keyword">new</span> Enum&lt;EnumTest&gt;(<span class="string">"WED"</span>,<span class="number">2</span>);</span><br><span class="line">    ... ...</span><br></pre></td></tr></table></figure>
 
-<p>arp -a 月nbtstat -a的区别？</p>
-<ol>
-<li>arp只能是同网段（局域网内同一个VLAN）。</li>
-<li>nbtstat是netbios扫描，可以跨网段，但是一般不能跨局域网。（除非对方没有通过路由器直接接在公网上）</li>
-</ol>
-<p>大体而言，根据ip查mac基本上是只能查本地局域网。</p>
-<p>获取不到的问题？</p>
-<ul>
-<li><p>网线没连接好，先看看能否ping 通</p>
-</li>
-<li><p>是否在策略组设置了禁止外部访问获取的权限</p>
-</li>
-<li><p>是否防火墙拦截</p>
-</li>
-<li><p>是否中病毒，或者有防水坝系统等拦截</p>
-</li>
-<li><p><strong>重点解决方案（能ping通却获取不到）</strong></p>
-<p><code>针对这样的情况，我们可以通过ping ip之后用arp -a ip 命令来获取。</code></p>
-</li>
-</ul>
+<p>　　也就是说，这段代码实际上调用了7次 Enum(String name, int ordinal)。</p>
+<p>　　枚举类经过编译器编译之后产生的是一个class文件，该class文件经过反编译可以看到实际上是生成了一个类，该类继承了java.lang.Enum<e>。 </e></p>
+<p>　　也就是说，enum 实际上就是一个 class，只不过 java 编译器帮我们做了语法的解析和编译而已，我们的枚举值也被解释成了static final修饰的常量。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">com</span>.<span class="title">hmw</span>.<span class="title">test</span>.<span class="title">EnumTest</span> <span class="keyword">extends</span> <span class="title">java</span>.<span class="title">lang</span>.<span class="title">Enum</span></span>&#123;</span><br><span class="line">　　<span class="comment">//我们可以看到：定义的时候的枚举值，被实例化了</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> com.hmw.test.EnumTest MON;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> com.hmw.test.EnumTest TUE;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> com.hmw.test.EnumTest WED;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> com.hmw.test.EnumTest THU;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> com.hmw.test.EnumTest FRI;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> com.hmw.test.EnumTest SAT;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> com.hmw.test.EnumTest SUN;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> &#123;&#125;;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getValue</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isRest</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> com.hmw.test.EnumTest[] values();</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> com.hmw.test.<span class="function">EnumTest <span class="title">valueOf</span><span class="params">(java.lang.String)</span></span>;</span><br><span class="line">    com.hmw.test.EnumTest(java.lang.String, <span class="keyword">int</span>, <span class="keyword">int</span>, com.hmw.test.EnumTest);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>　　Enum类中封装了一些方法，最常用的是 compareTo 和 toString。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//比较此枚举与指定对象的顺序。</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">compareTo</span><span class="params">(E o)</span> </span></span><br><span class="line"><span class="function"><span class="comment">//返回与此枚举常量的枚举类型相对应的 Class 对象。</span></span></span><br><span class="line"><span class="function">Class&lt;E&gt; <span class="title">getDeclaringClass</span><span class="params">()</span>    </span></span><br><span class="line"><span class="function"><span class="comment">// 返回此枚举常量的名称，在其枚举声明中对其进行声明。</span></span></span><br><span class="line"><span class="function">String <span class="title">name</span><span class="params">()</span> </span></span><br><span class="line"><span class="function"><span class="comment">// 返回枚举常量的序数（它在枚举声明中的位置，其中初始常量序数为零）。</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">ordinal</span><span class="params">()</span> </span></span><br><span class="line"><span class="function"><span class="comment">//返回枚举常量的名称，它包含在声明中。</span></span></span><br><span class="line"><span class="function">String <span class="title">toString</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="comment">//返回带指定名称的指定枚举类型的枚举常量。</span></span></span><br><span class="line"><span class="function"><span class="keyword">static</span> &lt;T extends Enum&lt;T&gt;&gt; T <span class="title">valueOf</span><span class="params">(Class&lt;T&gt; enumType, String name)</span></span></span><br></pre></td></tr></table></figure>
+
+<h3 id="枚举的序列化与反序列化"><a href="#枚举的序列化与反序列化" class="headerlink" title="枚举的序列化与反序列化"></a>枚举的序列化与反序列化</h3><p>​    枚举类型在序列化时仅仅是将<strong>枚举对象的name属性输出到结果</strong>中，反序列化的时候则是通过java.lang.Enum的<strong>valueOf方法来根据名字查找枚举对象</strong>。</p>
+<p>　　同时，编译器<strong>禁止重写</strong>枚举类型的writeObject、readObject、readObjectNoData、writeReplace和readResolve等方法。</p>
+<h3 id="为什么说枚举类型是线程安全的"><a href="#为什么说枚举类型是线程安全的" class="headerlink" title="为什么说枚举类型是线程安全的"></a>为什么说枚举类型是线程安全的</h3><p>​    枚举类编译出来的属性都是static类型的，而static类型的属性会在类被加载之后初始化，而Java<strong>类的加载和初始化过程都是线程安全的，所以创建一个enum类型是线程安全</strong>的。</p>
 
       
 
@@ -261,6 +256,10 @@
 			 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
         		</li>
       		
 		</ul>
@@ -316,7 +315,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://lemon9610.github.io/2019/08/12/JavaWeb获取客户端IP，MAC脱坑/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://lemon9610.github.io/2019/08/12/枚举的实现——Enum类/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -330,18 +329,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/08/12/CAP原理/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/08/12/ehcache、memcache、redis三大缓存比较/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          CAP原则介绍
+          ehcache、memcache、redis三大缓存比较
         
       </div>
     </a>
   
   
-    <a href="/2019/08/12/记19812/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">记19/8/12</div>
+    <a href="/2019/08/12/CAP原理/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">CAP原则介绍</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -368,7 +367,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#主要内容："><span class="toc-number">1.</span> <span class="toc-text">主要内容：</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#JavaWeb获取客户端IP，MAC脱坑"><span class="toc-number"></span> <span class="toc-text">JavaWeb获取客户端IP，MAC脱坑</span></a>
+                    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#主要内容："><span class="toc-number">1.</span> <span class="toc-text">主要内容：</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#枚举的实现——Enum类"><span class="toc-number"></span> <span class="toc-text">枚举的实现——Enum类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#枚举的实现"><span class="toc-number"></span> <span class="toc-text">枚举的实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#枚举的序列化与反序列化"><span class="toc-number"></span> <span class="toc-text">枚举的序列化与反序列化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#为什么说枚举类型是线程安全的"><span class="toc-number"></span> <span class="toc-text">为什么说枚举类型是线程安全的</span></a>
                     </div>
                 </span>
             </div>
@@ -382,7 +381,7 @@
   
   <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="JavaWeb获取客户端IP，MAC脱坑" data-title="JavaWeb获取客户端IP，MAC脱坑" data-url="https://lemon9610.github.io/2019/08/12/JavaWeb获取客户端IP，MAC脱坑/"></div>
+	<div class="ds-thread" data-thread-key="枚举的实现——Enum类" data-title="枚举的实现——Enum类" data-url="https://lemon9610.github.io/2019/08/12/枚举的实现——Enum类/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
@@ -405,8 +404,8 @@
   <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
 <script>
   var cloudTieConfig = {
-    url: "https://lemon9610.github.io/2019/08/12/JavaWeb获取客户端IP，MAC脱坑/", 
-    sourceId: "JavaWeb获取客户端IP，MAC脱坑",
+    url: "https://lemon9610.github.io/2019/08/12/枚举的实现——Enum类/", 
+    sourceId: "枚举的实现——Enum类",
     productKey: "true",
     target: "cloud-tie-wrapper"
   };
@@ -415,7 +414,7 @@
   
 
   
-  <div id="SOHUCS" sid="JavaWeb获取客户端IP，MAC脱坑" ></div> 
+  <div id="SOHUCS" sid="枚举的实现——Enum类" ></div> 
 <script charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/changyan.js" ></script>
 <script type="text/javascript">
     window.changyan.api.config({
