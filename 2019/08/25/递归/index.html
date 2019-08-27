@@ -6,19 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://lemon9610.github.io">
-  <title>Archives: 2019/8 | Lemon</title>
+  <title>递归 | Lemon</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="能吃且有趣的灵魂">
-<meta name="keywords" content="外焦里嫩">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Lemon">
-<meta property="og:url" content="https://lemon9610.github.io/archives/2019/08/page/2/index.html">
+  <meta name="description" content="主要内容：主要整理了递归的使用以及暴力走迷宫和八皇后问题">
+<meta name="keywords" content="学习笔记,数据结构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="递归">
+<meta property="og:url" content="https://lemon9610.github.io/2019/08/25/递归/index.html">
 <meta property="og:site_name" content="Lemon">
-<meta property="og:description" content="能吃且有趣的灵魂">
+<meta property="og:description" content="主要内容：主要整理了递归的使用以及暴力走迷宫和八皇后问题">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-08-27T01:38:53.547Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Lemon">
-<meta name="twitter:description" content="能吃且有趣的灵魂">
+<meta name="twitter:title" content="递归">
+<meta name="twitter:description" content="主要内容：主要整理了递归的使用以及暴力走迷宫和八皇后问题">
   
     <link rel="alternative" href="/atom.xml" title="Lemon" type="application/atom+xml">
   
@@ -166,36 +167,84 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-递归" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        <center><p>
+  
+    <h1 class="article-title_code_ant" itemprop="name">
+      递归
+    </h1>
+  
+</p></center>
+        
+        <a href="/2019/08/25/递归/" class="archive-article-date">
+  	<time datetime="2019-08-25T05:35:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-25</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="主要内容："><a href="#主要内容：" class="headerlink" title="主要内容："></a>主要内容：</h4><p>主要整理了递归的使用以及暴力走迷宫和八皇后问题</p>
+<a id="more"></a>
+
+<h1 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h1><h2 id="递归概念："><a href="#递归概念：" class="headerlink" title="递归概念："></a>递归概念：</h2><p>简单说，递归就是方法自己调用自己，每次传入不同的变量，进行相同的计算，满足条件回溯。</p>
+<h2 id="递归遵守的规则："><a href="#递归遵守的规则：" class="headerlink" title="递归遵守的规则："></a>递归遵守的规则：</h2><p>1、 当程序执行到一个方法时，就会开辟一个独立的空间(栈)</p>
+<p>2、每个空间的数据(局部变量)，是独立的</p>
+<p>3、递归必须向退出递归的条件逼近，否则会出现StackOverflowError</p>
+<p>4、遵循谁调用，就将结果返回给谁</p>
+<h2 id="递归应用："><a href="#递归应用：" class="headerlink" title="递归应用："></a>递归应用：</h2><h3 id="使用递归回溯来给小球找路"><a href="#使用递归回溯来给小球找路" class="headerlink" title="使用递归回溯来给小球找路"></a>使用递归回溯来给小球找路</h3><h4 id="实现思路："><a href="#实现思路：" class="headerlink" title="实现思路："></a>实现思路：</h4><p>1、map 表示地图<br>2、i,j 表示从地图的哪个位置开始出发 (1,1)<br>3、 如果小球能到<code>map[6][5]</code>位置，则说明通路找到.<br>4、约定： 当<code>map[i][j]</code> 为 0 表示该点没有走过 当为 1 表示墙  ；2 表示通路可以走 ；3 表示该点已经走过，但是走不通<br>5、 在走迷宫时，需要确定一个策略(方法) 下-&gt;右-&gt;上-&gt;左 , 如果该点走不通，再回溯</p>
+<h4 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> map 表示地图</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> i 从哪个位置开始找</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> j </span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> 如果找到通路，就返回true, 否则返回false</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">setWay</span><span class="params">(<span class="keyword">int</span>[][] map, <span class="keyword">int</span> i, <span class="keyword">int</span> j)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(map[<span class="number">6</span>][<span class="number">5</span>] == <span class="number">2</span>) &#123; <span class="comment">// 通路已经找到ok</span></span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="keyword">if</span>(map[i][j] == <span class="number">0</span>) &#123; <span class="comment">//如果当前这个点还没有走过</span></span><br><span class="line">			<span class="comment">//按照策略 下-&gt;右-&gt;上-&gt;左  走</span></span><br><span class="line">			map[i][j] = <span class="number">2</span>; <span class="comment">// 假定该点是可以走通.</span></span><br><span class="line">			<span class="keyword">if</span>(setWay(map, i+<span class="number">1</span>, j)) &#123;<span class="comment">//向下走</span></span><br><span class="line">				<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">			&#125; <span class="keyword">else</span> <span class="keyword">if</span> (setWay(map, i, j+<span class="number">1</span>)) &#123; <span class="comment">//向右走</span></span><br><span class="line">				<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">			&#125; <span class="keyword">else</span> <span class="keyword">if</span> (setWay(map, i-<span class="number">1</span>, j)) &#123; <span class="comment">//向上</span></span><br><span class="line">				<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">			&#125; <span class="keyword">else</span> <span class="keyword">if</span> (setWay(map, i, j-<span class="number">1</span>))&#123; <span class="comment">// 向左走</span></span><br><span class="line">				<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				<span class="comment">//说明该点是走不通，是死路</span></span><br><span class="line">				map[i][j] = <span class="number">3</span>;</span><br><span class="line">				<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123; <span class="comment">// 如果map[i][j] != 0 , 可能是 1， 2， 3</span></span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="八皇后问题"><a href="#八皇后问题" class="headerlink" title="八皇后问题"></a>八皇后问题</h3><p>任意两个皇后不在同一行、同一列、同一斜线，问有多少种摆法。</p>
+<h4 id="实现思路：-1"><a href="#实现思路：-1" class="headerlink" title="实现思路："></a>实现思路：</h4><p>1、第一个皇后先放第一行第一列</p>
+<p>2、第二个皇后放在第二行第一列、然后判断是否OK[即判断是冲突]， 如果不OK，继续放在第二列、第三列、依次把所有列都放完，找到一个合适</p>
+<p>3、继续第三个皇后，还是第一列、第二列……直到第8个皇后也能放在一个不冲突的位置，算是找到了一个正确解</p>
+<p>4、当得到一个正确解时，在栈回退到上一个栈时，就会开始回溯，即将第一个皇后，放到第一列的所有正确解，全部得到.</p>
+<p>5) 然后回头继续第一个皇后放第二列，后面继续循环执行 1,2,3,4的步骤 </p>
+<h4 id="代码实现：-1"><a href="#代码实现：-1" class="headerlink" title="代码实现："></a>代码实现：</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Queue8</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//定义一个max表示共有多少个皇后</span></span><br><span class="line">	<span class="keyword">int</span> max = <span class="number">8</span>;</span><br><span class="line">	<span class="comment">//定义数组array, 保存皇后放置位置的结果,比如 arr = &#123;0 , 4, 7, 5, 2, 6, 1, 3&#125; </span></span><br><span class="line">	<span class="keyword">int</span>[] array = <span class="keyword">new</span> <span class="keyword">int</span>[max];</span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">int</span> judgeCount = <span class="number">0</span>;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">//测试一把 ， 8皇后是否正确</span></span><br><span class="line">		Queue8 queue8 = <span class="keyword">new</span> Queue8();</span><br><span class="line">		queue8.check(<span class="number">0</span>);</span><br><span class="line">		System.out.printf(<span class="string">"一共有%d解法"</span>, count);</span><br><span class="line">		System.out.printf(<span class="string">"一共判断冲突的次数%d次"</span>, judgeCount); <span class="comment">// 1.5w</span></span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//编写一个方法，放置第n个皇后</span></span><br><span class="line">	<span class="comment">//特别注意： check 是 每一次递归时，进入到check中都有  for(int i = 0; i &lt; max; i++)，因此会有回溯</span></span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">check</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(n == max) &#123;  <span class="comment">//n = 8 , 其实8个皇后就既然放好</span></span><br><span class="line">			print();</span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//依次放入皇后，并判断是否冲突</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; max; i++) &#123;</span><br><span class="line">			<span class="comment">//先把当前这个皇后 n , 放到该行的第1列</span></span><br><span class="line">			array[n] = i;</span><br><span class="line">			<span class="comment">//判断当放置第n个皇后到i列时，是否冲突</span></span><br><span class="line">			<span class="keyword">if</span>(judge(n)) &#123; <span class="comment">// 不冲突</span></span><br><span class="line">				<span class="comment">//接着放n+1个皇后,即开始递归</span></span><br><span class="line">				check(n+<span class="number">1</span>); <span class="comment">//  </span></span><br><span class="line">			&#125;</span><br><span class="line">			<span class="comment">//如果冲突，就继续执行 array[n] = i; 即将第n个皇后，放置在本行得 后移的一个位置</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//查看当我们放置第n个皇后, 就去检测该皇后是否和前面已经摆放的皇后冲突</span></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> n 表示第n个皇后</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">judge</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">		judgeCount++;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">			<span class="comment">// 说明</span></span><br><span class="line">			<span class="comment">//1. array[i] == array[n]  表示判断 第n个皇后是否和前面的n-1个皇后在同一列</span></span><br><span class="line">			<span class="comment">//2. Math.abs(n-i) == Math.abs(array[n] - array[i]) 表示判断第n个皇后是否和第i皇后是否在同一斜线</span></span><br><span class="line">			<span class="comment">// n = 1  放置第 2列 1 n = 1 array[1] = 1</span></span><br><span class="line">			<span class="comment">// Math.abs(1-0) == 1  Math.abs(array[n] - array[i]) = Math.abs(1-0) = 1</span></span><br><span class="line">			<span class="comment">//3. 判断是否在同一行, 没有必要，n 每次都在递增</span></span><br><span class="line">			<span class="keyword">if</span>(array[i] == array[n] || Math.abs(n-i) == Math.abs(array[n] - array[i]) ) &#123;</span><br><span class="line">				<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//写一个方法，可以将皇后摆放的位置输出</span></span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">print</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		count++;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; array.length; i++) &#123;</span><br><span class="line">			System.out.print(array[i] + <span class="string">" "</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>感谢老铁请我恰鸡腿<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/wepay.jpg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/13/设计模式之七大设计原则/" class="archive-article-date">
-  	<time datetime="2019-08-13T05:35:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-13</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/13/设计模式之七大设计原则/">设计模式之七大设计原则</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -205,378 +254,174 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">数据结构</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://lemon9610.github.io/2019/08/25/递归/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/13/设计模式之UMl类图介绍/" class="archive-article-date">
-  	<time datetime="2019-08-13T05:35:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-13</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2019/08/26/栈/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          栈
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/08/23/链表/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">链表</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/13/设计模式之UMl类图介绍/">设计模式之UMl类图介绍</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#主要内容："><span class="toc-number">1.</span> <span class="toc-text">主要内容：</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#递归"><span class="toc-number"></span> <span class="toc-text">递归</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#递归概念："><span class="toc-number"></span> <span class="toc-text">递归概念：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#递归遵守的规则："><span class="toc-number"></span> <span class="toc-text">递归遵守的规则：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#递归应用："><span class="toc-number"></span> <span class="toc-text">递归应用：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#使用递归回溯来给小球找路"><span class="toc-number"></span> <span class="toc-text">使用递归回溯来给小球找路</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#实现思路："><span class="toc-number">1.</span> <span class="toc-text">实现思路：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#代码实现："><span class="toc-number">2.</span> <span class="toc-text">代码实现：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#八皇后问题"><span class="toc-number"></span> <span class="toc-text">八皇后问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#实现思路：-1"><span class="toc-number">1.</span> <span class="toc-text">实现思路：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#代码实现：-1"><span class="toc-number">2.</span> <span class="toc-text">代码实现：</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/12/ehcache、memcache、redis三大缓存比较/" class="archive-article-date">
-  	<time datetime="2019-08-12T05:35:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-12</time>
-</a>
-        </div>
-    	 
+  <div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="递归" data-title="递归" data-url="https://lemon9610.github.io/2019/08/25/递归/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/12/ehcache、memcache、redis三大缓存比较/">ehcache、memcache、redis三大缓存比较</a>
-    </h1>
+  
+  
+  <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+<script>
+  var cloudTieConfig = {
+    url: "https://lemon9610.github.io/2019/08/25/递归/", 
+    sourceId: "递归",
+    productKey: "true",
+    target: "cloud-tie-wrapper"
+  };
+</script>
+<script src="//img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/12/CAP原理/" class="archive-article-date">
-  	<time datetime="2019-08-12T05:35:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/12/CAP原理/">CAP原则介绍</a>
-    </h1>
+  <div id="SOHUCS" sid="递归" ></div> 
+<script charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/changyan.js" ></script>
+<script type="text/javascript">
+    window.changyan.api.config({
+        appid: "true",
+        conf: "true"
+    });
+</script>
+</script>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/12/JavaWeb获取客户端IP，MAC脱坑/" class="archive-article-date">
-  	<time datetime="2019-08-11T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/12/JavaWeb获取客户端IP，MAC脱坑/">JavaWeb获取客户端IP，MAC脱坑</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/12/记19812/" class="archive-article-date">
-  	<time datetime="2019-08-11T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/12/记19812/">记19/8/12</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">心情</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/11/AOP切面编程复习/" class="archive-article-date">
-  	<time datetime="2019-08-11T05:35:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/11/AOP切面编程复习/">AOP切面编程复习</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/10/VUE学习笔记/" class="archive-article-date">
-  	<time datetime="2019-08-10T05:35:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-10</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/10/VUE学习笔记/">VUE学习笔记</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">vue</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/09/0809学习任务/" class="archive-article-date">
-  	<time datetime="2019-08-09T08:48:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/09/0809学习任务/">08/09学习任务</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">计划</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/09/网络数据传输/" class="archive-article-date">
-  	<time datetime="2019-08-09T05:35:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/09/网络数据传输/">网络数据传输</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/2019/08/">&laquo; Prev</a><a class="page-number" href="/archives/2019/08/">1</a><span class="page-number current">2</span>
-    </nav>
   
 
 
@@ -605,8 +450,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
