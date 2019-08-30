@@ -6,22 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://lemon9610.github.io">
-  <title>Zookeeper一揽子计划（二） | Lemon</title>
+  <title>Tag: Maven | Lemon</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="主要内容：Zookeeper知识的复习，这一部分记录了Zookeeper的选举机制，监听机制，数据一致性，数据持久化，CAP理论。">
-<meta name="keywords" content="Zookeeper,学习笔记">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Zookeeper一揽子计划（二）">
-<meta property="og:url" content="https://lemon9610.github.io/2019/08/16/Zookeeper一揽子计划（二）/index.html">
+  <meta name="description" content="能吃且有趣的灵魂">
+<meta name="keywords" content="外焦里嫩">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Lemon">
+<meta property="og:url" content="https://lemon9610.github.io/tags/Maven/index.html">
 <meta property="og:site_name" content="Lemon">
-<meta property="og:description" content="主要内容：Zookeeper知识的复习，这一部分记录了Zookeeper的选举机制，监听机制，数据一致性，数据持久化，CAP理论。">
+<meta property="og:description" content="能吃且有趣的灵魂">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://lemon9610.github.io/bkimg/zab.png">
-<meta property="og:updated_time" content="2019-08-22T06:55:54.664Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Zookeeper一揽子计划（二）">
-<meta name="twitter:description" content="主要内容：Zookeeper知识的复习，这一部分记录了Zookeeper的选举机制，监听机制，数据一致性，数据持久化，CAP理论。">
-<meta name="twitter:image" content="https://lemon9610.github.io/bkimg/zab.png">
+<meta name="twitter:title" content="Lemon">
+<meta name="twitter:description" content="能吃且有趣的灵魂">
   
     <link rel="alternative" href="/atom.xml" title="Lemon" type="application/atom+xml">
   
@@ -169,331 +166,60 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Zookeeper一揽子计划（二）" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        <center><p>
+            
   
-    <h1 class="article-title_code_ant" itemprop="name">
-      Zookeeper一揽子计划（二）
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2019" class="archive-year">2019</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2019/08/25/Maven 问题汇总/" class="archive-article-date">
+  	<time datetime="2019-08-25T05:35:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-25</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2019/08/25/Maven 问题汇总/">Maven 问题汇总</a>
     </h1>
   
-</p></center>
-        
-        <a href="/2019/08/16/Zookeeper一揽子计划（二）/" class="archive-article-date">
-  	<time datetime="2019-08-16T05:35:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-16</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="主要内容："><a href="#主要内容：" class="headerlink" title="主要内容："></a>主要内容：</h4><p>Zookeeper知识的复习，这一部分记录了Zookeeper的选举机制，监听机制，数据一致性，数据持久化，CAP理论。</p>
-<a id="more"></a>
 
-<h1 id="Zookeeper一揽子计划（二）"><a href="#Zookeeper一揽子计划（二）" class="headerlink" title="Zookeeper一揽子计划（二）"></a>Zookeeper一揽子计划（二）</h1><h2 id="6、Zookeeper的一点机制"><a href="#6、Zookeeper的一点机制" class="headerlink" title="6、Zookeeper的一点机制"></a>6、Zookeeper的一点机制</h2><h3 id="6-1选举机制"><a href="#6-1选举机制" class="headerlink" title="6.1选举机制"></a>6.1选举机制</h3><p><strong>概念 ：</strong></p>
-<p>zookeeper 默认的算法是 FastLeaderElection，采用投票数大于半数则胜出的逻辑。</p>
-<p><strong>服务器 ID ：</strong></p>
-<p>比如有三台服务器，编号分别是 1,2,3。 编号越大在选择算法中的权重越大。</p>
-<p><strong>选举状态 ：</strong></p>
-<p>LOOKING，竞选状态。<br>FOLLOWING，随从状态，同步 leader 状态，参与投票。<br>OBSERVING，观察状态,同步 leader 状态，不参与投票。<br>LEADING，领导者状态。 </p>
-<p><strong>数据 ID：</strong></p>
-<p>服务器中存放的最新数据 version。 值越大说明数据越新，在选举算法中数据越新权重越大。 </p>
-<p><strong>逻辑时钟 ：</strong></p>
-<p>也叫投票的次数，同一轮投票过程中的逻辑时钟值是相同的。每投完一次票这个数据就会增加，然后与接收到的其它服务器返回的投票信息中的数值相比，根据不同的值做出不同的判断。 </p>
-<p><strong>全新集群选举过程：</strong></p>
-<p>假设目前有 5 台服务器，每台服务器均没有数据，它们的编号分别是1,2,3,4,5,按编号依次启动，它们的选择举过程如下： </p>
-<ol>
-<li>服务器 1 启动，给自己投票，然后发投票信息，由于其它机器还没有启动所以它收不到反馈信息，服务器 1 的状态一直属于 Looking。 </li>
-<li>服务器 2 启动，给自己投票，同时与之前启动的服务器 1 交换结果，由于服务器 2 的编号大所以服务器 2 胜出，但此时投票数没有大于半数，所以两个服务器的状态依然是 LOOKING。 </li>
-<li>服务器 3 启动，给自己投票，同时与之前启动的服务器 1,2 交换信息，由于服务器 3 的编号最大所以服务器 3 胜出，此时投票数正好大于半数，所以服务器 3 成为领导者，服务器 1,2 成为小弟。 </li>
-<li>服务器 4 启动，给自己投票，同时与之前启动的服务器 1,2,3 交换信息，尽管服务器 4 的编号大，但之前服务器 3 已经胜出，所以服务器 4 只能成为小弟。 </li>
-<li>服务器 5 启动，后面的逻辑同服务器 4 成为小弟。 </li>
-</ol>
-<p><strong>非全新集群选举 ：</strong></p>
-<p>对于运行正常的 zookeeper 集群，中途有机器 down 掉，需要重新选举时，选举过程就需要加入数据 ID、服务器 ID 和逻辑时钟。<br><strong>数据 ID</strong>：数据新的 version 就大，数据每次更新都会更新 version。<br><strong>服务器 ID</strong>：就是我们配置的 myid中的值，每个机器一个。<br><strong>逻辑时钟</strong>：这个值从 0 开始递增,每次选举对应一个值。 如果在同一次选举中,这个值是一致的。 这样选举的标准就变成：<br>  1、逻辑时钟小的选举结果被忽略，重新投票；<br>  2、逻辑时钟相同的情况下，数据 id 大的胜出；<br>  3、数据 id 相同的情况下，服务器 id 大的胜出；<br>根据这个规则选出 leader，选出leader后统一数据，然后统一逻辑时钟。</p>
-<h3 id="6-2监听机制"><a href="#6-2监听机制" class="headerlink" title="6.2监听机制"></a>6.2监听机制</h3><h4 id="6-2-1Watch机制介绍"><a href="#6-2-1Watch机制介绍" class="headerlink" title="6.2.1Watch机制介绍"></a>6.2.1Watch机制介绍</h4><p>​    ZooKeeper 提供了分布式数据发布/订阅功能，一个典型的发布/订阅模型系统定义了一种一对多的订阅关系，能让多个订阅者同时监听某一个主题对象，当这个主题对象自身状态变化时，会通知所有订阅者，使他们能够做出相应的处理。</p>
-<p>ZooKeeper 中，引入了 Watcher 机制来实现这种分布式的通知功能。ZooKeeper 允许客户端向服务端注册一个 Watcher 监听，当服务端的一些事件触发了这个 Watcher，那么就会向指定客户端发送一个事件通知来实现分布式的通知功能。 触发事件种类很多，如：节点创建，节点删除，节点改变，子节点改变等。</p>
-<p>总的来说可以概括 Watcher 为以下三个过程：客户端向服务端注册Watcher、服务端事件发生触发 Watcher、客户端回调 Watcher 得到触发事件情况。</p>
-<h4 id="6-2-2Watch-机制特点"><a href="#6-2-2Watch-机制特点" class="headerlink" title="6.2.2Watch 机制特点"></a>6.2.2Watch 机制特点</h4><p>1、一次性触发<br>​    事件发生触发监听，一个 watcher event 就会被发送到设置监听的客户端，这种效果是一次性的，后续再次发生同样的事件，不会再次触发。<br>2、事件封装<br>​    ZooKeeper 使用 WatchedEvent 对象来封装服务端事件并传递。 WatchedEvent 包含了每一个事件的三个基本属性： 通知状态（keeperState） ，事件类型（EventType）和节点路径（path）<br>3、event 异步发送<br>​    watcher 的通知事件从服务端发送到客户端是异步的。<br>4、先注册再触发<br>​    Zookeeper 中的 watch 机制，必须客户端先去服务端注册监听，这样事件发送才会触发监听，通知给客户端。 </p>
-<h3 id="6-3数据一致性（zab协议-原子广播协议）"><a href="#6-3数据一致性（zab协议-原子广播协议）" class="headerlink" title="6.3数据一致性（zab协议-原子广播协议）"></a>6.3数据一致性（zab协议-原子广播协议）</h3><h4 id="6-3-1消息广播"><a href="#6-3-1消息广播" class="headerlink" title="6.3.1消息广播"></a>6.3.1消息广播</h4><p>通过集群的部署，根据CAP原理，这样，可能导致同一个数据在不同节点上的数据不一致。zookeeper通过zab原子广播协议来保证数据在每一个节点上的一致性。原子广播协议（类似2PC提交协议）大概分为3个步骤。</p>
-<p><img src="https://lemon9610.github.io/bkimg/zab.png" alt="zab"></p>
-<ul>
-<li>客户端发起一个写操作请求 </li>
-<li>Leader包装写请求，生成唯一zxid</li>
-<li>leader发起提议，leader服务器与每个follower之间都有一个队列，leader将消息发送到该队列 ，广播给所有Follower</li>
-<li>Follower从队列中取出消息，写入本地事务日志，根据自身情况，向leader发送ACK确认</li>
-<li>leader服务器收到半数以上的follower的ACK后，即认为可以发送commit，Leader自己先添加事务，然后对所有的<strong>Learner</strong>节点发送提交事务请求。</li>
-</ul>
-<p>​    observer和follower都向leader提交proposal。但与follower不同，observer不参与投票的过程。它简单的通过接收leader发过来的INFORM消息来learn已经commit的proposal。因为leader都会给follower和observer发送<strong>INFORM消息</strong>，所以它们都被称为<strong>learner</strong>。</p>
-<p>​        zookeeper采用ZAB协议的核心就是只要有一台服务器提交了proposal，就要确保所有的服务器最终都能正确提交proposal。这也是CAP/BASE最终实现一致性的一个体现。</p>
-<p>​    leader服务器与每个follower之间都有一个单独的队列进行收发消息，使用队列消息可以做到异步解耦。leader和follower之间只要往队列中发送了消息即可。如果使用同步方式容易引起阻塞。性能上要下降很多。</p>
-<p>需要说明的是，zookeeper对数据一致性的要求是：</p>
-<ul>
-<li>顺序一致性：严格按照事务发起的顺序执行写操作。</li>
-<li>原子性：所有事务请求的结果在集群中的所有节点上的应用情况是一致的。</li>
-<li>单一视图：客户端访问任何一个节点，看到的数据模型都是一致的。</li>
-<li>实时性：保证在极小一段时间客户端最终可以从服务读取最新数据状态（如果要实时，需要客户端调用syn方法）。</li>
-</ul>
-<h4 id="6-3-2INFORM消息背后的故事"><a href="#6-3-2INFORM消息背后的故事" class="headerlink" title="6.3.2INFORM消息背后的故事"></a>6.3.2INFORM消息背后的故事</h4><p>​    因为observer不会接收proposal并参与投票，leader不会发送proposal给observer。leader发送给follower的commit消息只包含zxid，并没有proposal本身。所以，只发送commit消息给observer则不会让observer得知已提交的proposal。这就是使用INFORM消息的原因，此消息本质上是一个包含了已被commit的proposal的commit消息。</p>
-<p>​    简而言之，follower会得到两个消息，而observer只会得到一个。follower通过广播得到proposal的内容，接下来获得一个简单commit消息，此消息只包含了zxid。相反，observer得到一个包含了已被commit的proposal的INFORM消息。</p>
-<p>​    参与了决定是否commit一个proposal的投票的server就称为PARTICIPANT server，leader和follower都属于这种server。observer则称为OBSERVER server。</p>
-<h4 id="6-3-3崩溃恢复"><a href="#6-3-3崩溃恢复" class="headerlink" title="6.3.3崩溃恢复:"></a>6.3.3崩溃恢复:</h4><ol>
-<li><p>zookeeper集群中为保证任何所有进程能够有序的顺序执行，只能是leader服务器接受写请求，即使是follower服务器接受到客户端的请求，也会转发到leader服务器进行处理。</p>
-</li>
-<li><p>如果leader服务器发生崩溃，则zab协议要求zookeeper集群进行崩溃恢复和leader服务器选举。</p>
-</li>
-<li><p>ZAB协议崩溃恢复要求满足如下2个要求： </p>
-<p>1、确保已经被leader提交的proposal必须最终被所有的follower服务器提交。 </p>
-<p>2、确保丢弃已经被leader出的但是没有被提交的proposal。</p>
-</li>
-<li><p>根据上述要求，新选举出来的leader不能包含未提交的proposal，即新选举的leader必须都是已经提交了的proposal的follower服务器节点。同时，新选举的leader节点中含有最高的ZXID。这样做的好处就是可以避免了leader服务器检查proposal的提交和丢弃工作。</p>
-</li>
-<li><p>leader服务器发生崩溃时分为如下场景： </p>
-<p>leader在提出proposal时未提交之前崩溃，则经过崩溃恢复之后，新选举的leader一定不能是刚才的leader。因为这个leader存在未提交的proposal。 </p>
-</li>
-</ol>
-<p>​    leader在发送commit消息之后，崩溃。即消息已经发送到队列中。经过崩溃恢复之后，参与选举的follower服务器(刚才崩溃的leader有可能已经恢复运行，也属于follower节点范畴)中有的节点已经是消费了队列中所有的commit消息。即该follower节点将会被选举为最新的leader。剩下动作就是数据同步过程。</p>
-<h4 id="6-3-4数据同步"><a href="#6-3-4数据同步" class="headerlink" title="6.3.4数据同步:"></a>6.3.4数据同步:</h4><p>​    在zookeeper集群中新的leader选举成功之后，leader会将自身的提交的最大proposal的事物ZXID发送给其他的follower节点。follower节点会根据leader的消息进行回退或者是数据同步操作。最终目的要保证集群中所有节点的数据副本保持一致。<br>​    数据同步完之后，zookeeper集群如何保证新选举的leader分配的ZXID是全局唯一呢？这个就要从ZXID的设计谈起。<br>​    ZXID是一个长度64位的数字，其中低32位用来递增计数，即每次客户端发起一个proposal,低32位的数字简单加1。高32位是epoch用来标识leader是否发生改变，每当选举出一个新的leader时，新的leader就从本地事物日志中取出ZXID,然后解析出高32位的epoch编号，进行加1，再将低32位的全部设置为0。这样就保证了每次新选举的leader后，保证了ZXID的唯一性而且是保证递增的。 </p>
-<h4 id="ZAB协议原理"><a href="#ZAB协议原理" class="headerlink" title="ZAB协议原理"></a>ZAB协议原理</h4><ol>
-<li>ZAB协议要求每个leader都要经历三个阶段，即发现，同步，广播。</li>
-<li>发现：即要求zookeeper集群必须选择出一个leader进程，同时leader会维护一个follower可用列表。将来客户端可以这follower中的节点进行通信。</li>
-<li>同步：leader要负责将本身的数据与follower完成同步，做到多副本存储。这样也是体现了CAP中高可用和分区容错。follower将队列中未处理完的请求消费完成后，写入本地事物日志中。</li>
-<li>广播：leader可以接受客户端新的proposal请求，将新的proposal请求广播给所有的follower。</li>
-</ol>
-<h3 id="6-4数据的持久化"><a href="#6-4数据的持久化" class="headerlink" title="6.4数据的持久化"></a>6.4数据的持久化</h3><p>1、zookeeper所有数据都存在内存中。 </p>
-<p>2、zookeeper会定期将内存dump到磁盘中，形成数据快照。</p>
-<p>3、zookeeper每次的事务请求，都会先接入到磁盘中，形成事务日志。 </p>
-<p>4、全量数据 = 数据快照 + 事务日志。</p>
-<h3 id="6-5CAP理论概述"><a href="#6-5CAP理论概述" class="headerlink" title="6.5CAP理论概述"></a>6.5CAP理论概述</h3><p>CAP理论告诉我们，一个分布式系统不可能同时满足以下三种</p>
-<ul>
-<li>一致性（C:Consistency）</li>
-<li>可用性（A:Available）</li>
-<li>分区容错性（P:Partition Tolerance）</li>
-</ul>
-<p>这三个基本需求，最多只能同时满足其中的两项，因为P是必须的,因此往往选择就在CP或者AP中。</p>
-<p><strong>在此ZooKeeper保证的是CP</strong></p>
-<p><strong>分析：为什么不满足可用性（A:Available）</strong></p>
-<p>​    <strong>不能保证每次服务请求的可用性</strong>。任何时刻对ZooKeeper的访问请求能得到一致的数据结果，同时系统对网络分割具备容错性；但是它不能保证每次服务请求的可用性（注：也就是在极端环境下，ZooKeeper可能会丢弃一些请求，消费者程序需要重新请求才能获得结果）。所以说，ZooKeeper不能保证服务可用性。</p>
-<p>​    <strong>进行leader选举时集群是不可用</strong>。在使用ZooKeeper获取服务列表时，当master节点因为网络故障与其他节点失去联系时，剩余节点会重新进行leader选举。问题在于，选举leader的时间太长，30 ~ 120s, 且选举期间整个zk集群都是不可用的，这就导致在选举期间注册服务瘫痪，虽然服务能够最终恢复，但是漫长的选举时间导致的注册长期不可用是不能容忍的。所以说，ZooKeeper不能保证服务可用性。</p>
-
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>感谢老铁请我恰鸡腿<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="/assets/img/alipay.jpg">
-                      <span class="reward-type">支付宝</span>
-                    </div>
-                    
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="/assets/img/wepay.jpg">
-                      <span class="reward-type">微信</span>
-                    </div>
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Zookeeper</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Maven</a>
         		</li>
       		
 		</ul>
 	</div>
 
-      
+          
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://lemon9610.github.io/2019/08/16/Zookeeper一揽子计划（二）/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2019/08/18/Zookeeper一揽子计划（三）/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Zookeeper一揽子计划（三）
-        
-      </div>
-    </a>
   
   
-    <a href="/2019/08/15/枚举的实现——Enum类/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">枚举的实现——Enum类</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-        <div class="toc-container tooltip-left">
-            <i class="icon-font icon-category"></i>
-            <div class="tooltip tooltip-east">
-                <span class="tooltip-item">
-                </span>
-                <span class="tooltip-content">
-                    <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#主要内容："><span class="toc-number">1.</span> <span class="toc-text">主要内容：</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Zookeeper一揽子计划（二）"><span class="toc-number"></span> <span class="toc-text">Zookeeper一揽子计划（二）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#6、Zookeeper的一点机制"><span class="toc-number"></span> <span class="toc-text">6、Zookeeper的一点机制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1选举机制"><span class="toc-number"></span> <span class="toc-text">6.1选举机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2监听机制"><span class="toc-number"></span> <span class="toc-text">6.2监听机制</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#6-2-1Watch机制介绍"><span class="toc-number">1.</span> <span class="toc-text">6.2.1Watch机制介绍</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-2-2Watch-机制特点"><span class="toc-number">2.</span> <span class="toc-text">6.2.2Watch 机制特点</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-3数据一致性（zab协议-原子广播协议）"><span class="toc-number"></span> <span class="toc-text">6.3数据一致性（zab协议-原子广播协议）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#6-3-1消息广播"><span class="toc-number">1.</span> <span class="toc-text">6.3.1消息广播</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-3-2INFORM消息背后的故事"><span class="toc-number">2.</span> <span class="toc-text">6.3.2INFORM消息背后的故事</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-3-3崩溃恢复"><span class="toc-number">3.</span> <span class="toc-text">6.3.3崩溃恢复:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-3-4数据同步"><span class="toc-number">4.</span> <span class="toc-text">6.3.4数据同步:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ZAB协议原理"><span class="toc-number">5.</span> <span class="toc-text">ZAB协议原理</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-4数据的持久化"><span class="toc-number"></span> <span class="toc-text">6.4数据的持久化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-5CAP理论概述"><span class="toc-number"></span> <span class="toc-text">6.5CAP理论概述</span></a>
-                    </div>
-                </span>
-            </div>
-        </div>
-        
-    </div>
-</aside>
-
-
-
-  
-  <div class="duoshuo">
-	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="Zookeeper一揽子计划（二）" data-title="Zookeeper一揽子计划（二）" data-url="https://lemon9610.github.io/2019/08/16/Zookeeper一揽子计划（二）/"></div>
-	<!-- 多说评论框 end -->
-	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-	<script type="text/javascript">
-	var duoshuoQuery = {short_name:"true"};
-	(function() {
-		var ds = document.createElement('script');
-		ds.type = 'text/javascript';ds.async = true;
-		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-		ds.charset = 'UTF-8';
-		(document.getElementsByTagName('head')[0] 
-		 || document.getElementsByTagName('body')[0]).appendChild(ds);
-	})();
-	</script>
-	<!-- 多说公共JS代码 end -->
-</div>
-
-  
-  
-  
-  <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
-<script>
-  var cloudTieConfig = {
-    url: "https://lemon9610.github.io/2019/08/16/Zookeeper一揽子计划（二）/", 
-    sourceId: "Zookeeper一揽子计划（二）",
-    productKey: "true",
-    target: "cloud-tie-wrapper"
-  };
-</script>
-<script src="//img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
+    </div></section>
   
 
-  
-  <div id="SOHUCS" sid="Zookeeper一揽子计划（二）" ></div> 
-<script charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/changyan.js" ></script>
-<script type="text/javascript">
-    window.changyan.api.config({
-        appid: "true",
-        conf: "true"
-    });
-</script>
-</script>
-  
-
-  
-
-  
+    
 
 
           </div>
@@ -521,9 +247,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
