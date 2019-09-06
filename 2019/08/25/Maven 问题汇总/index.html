@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="Lemon">
 <meta property="og:description" content="主要内容：汇总自己的项目中使用Maven出现的问题">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-08-30T03:25:10.741Z">
+<meta property="og:updated_time" content="2019-09-05T01:39:37.675Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Maven 问题汇总">
 <meta name="twitter:description" content="主要内容：汇总自己的项目中使用Maven出现的问题">
@@ -190,12 +190,26 @@
         <h4 id="主要内容："><a href="#主要内容：" class="headerlink" title="主要内容："></a>主要内容：</h4><p>汇总自己的项目中使用Maven出现的问题</p>
 <a id="more"></a>
 
-<h1 id="Maven-问题汇总"><a href="#Maven-问题汇总" class="headerlink" title="Maven 问题汇总"></a>Maven 问题汇总</h1><p>1、install报错：plugin&gt;org.apache.maven.plugins:maven-compiler-plugin:3.1</p>
-<p>解决方案：</p>
+<h1 id="Maven-问题汇总"><a href="#Maven-问题汇总" class="headerlink" title="Maven 问题汇总"></a>Maven 问题汇总</h1><h3 id="elasticsearch异常-NoSuchMethodError-org-jboss-netty-channel-socket-nio-NioWo"><a href="#elasticsearch异常-NoSuchMethodError-org-jboss-netty-channel-socket-nio-NioWo" class="headerlink" title="elasticsearch异常:NoSuchMethodError:org.jboss.netty.channel.socket.nio.NioWo"></a>elasticsearch异常:NoSuchMethodError:org.jboss.netty.channel.socket.nio.NioWo</h3><p>netty版本冲突造成的，需要在依赖中去掉。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;exclusions&gt;</span><br><span class="line">    &lt;exclusion&gt;</span><br><span class="line">        &lt;artifactId&gt;netty&lt;/artifactId&gt;</span><br><span class="line">        &lt;groupId&gt;org.jboss.netty&lt;/groupId&gt;</span><br><span class="line">    &lt;/exclusion&gt;</span><br><span class="line">&lt;/exclusions&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Maven项目打包"><a href="#Maven项目打包" class="headerlink" title="Maven项目打包"></a>Maven项目打包</h3><p>maven的三种项目打包方式——jar，war，pom的区别：</p>
+<p>​    jar：默认的打包方式，打包成jar用作jar包使用。像是存放一些其他工程都会使用的工具类，我们可以在其他工程的pom文件中去引用它<br>​    war：将会打包成war，发布在服务器上，如网站或服务，用户可以通过浏览器直接访问，或者是通过发布服务被别的工程调用<br>​    pom：用在父级工程或聚合工程中，用来做jar包的版本控制，必须指明这个聚合工程的打包方式为pom</p>
+<h3 id="SpringBoot项目打jar部署包流程："><a href="#SpringBoot项目打jar部署包流程：" class="headerlink" title="SpringBoot项目打jar部署包流程："></a>SpringBoot项目打jar部署包流程：</h3><p>1、要打包成jar的子项目pom文件中添加如下依赖</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;plugins&gt;</span><br><span class="line">    &lt;plugin&gt;</span><br><span class="line">        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;</span><br><span class="line">    &lt;/plugin&gt;</span><br><span class="line">&lt;/plugins&gt;</span><br></pre></td></tr></table></figure>
+
+<p>2、根据父目录-&gt;dependencies-&gt;common-&gt;子项目的顺序分别对项目进行 clean 和install</p>
+<p>3、选择mvn  package进行打包，targer目录下成功出现jar包</p>
+<p>4、可在本地运行jar包测试jar包是否运行成功。</p>
+<p>5、将jar包上传至目标路径（1722111134主机epservice下相对应的目录下）<br>6.启动jar包：<br>a) java -jar XXX.jar命令：当前ssh窗口被锁定，可按CTRL + C打断程序运行，或直接关闭窗口，程序退出<br>b) java -jar XXX.jar &amp;命令：&amp;代表在后台运行。当前ssh窗口不被锁定，但是当窗口关闭时，程序中止运行。<br>c) nohup java -jar XXX.jar &amp;命令：nohup 意思是不挂断运行命令,当账户退出或终端关闭时,程序仍然运行，当用 nohup 命令 执行作业时，缺省情况下该作业的所有输出被重定向到nohup.out的文件中，除非另外指定了输出文件。</p>
+<p><strong>补充：</strong><br>     可以在jar包的同级目录下添加config目录，目录下新建application.properties，可随时修改配置文件而无需重新打包。  Springboot读取核心配置文件（application.properties）的优先级为:<br>     Jar包同级目录的config目录&gt;Jar包同级目录&gt;classPath(即resources目录)的config目录&gt;classpath目录.  如果Spring Boot在优先级更高的位置找到了配置，那么它会无视优先级更低的配置</p>
+<p>出现Maven版本问题的解决方案：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;plugin&gt;</span><br><span class="line">    &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;3.5.1&lt;/version&gt;</span><br><span class="line">        &lt;configuration&gt;</span><br><span class="line">            &lt;!-- put your configurations here --&gt;</span><br><span class="line">            &lt;source&gt;1.8&lt;/source&gt;</span><br><span class="line">            &lt;target&gt;1.8&lt;/target&gt;</span><br><span class="line">    	&lt;/configuration&gt;</span><br><span class="line">&lt;/plugin&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="install报错：plugin-gt-org-apache-maven-plugins-maven-compiler-plugin-3-1"><a href="#install报错：plugin-gt-org-apache-maven-plugins-maven-compiler-plugin-3-1" class="headerlink" title="install报错：plugin&gt;org.apache.maven.plugins:maven-compiler-plugin:3.1"></a>install报错：plugin&gt;org.apache.maven.plugins:maven-compiler-plugin:3.1</h3><p>解决方案：</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;plugin&gt;</span><br><span class="line">    &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt; 3.8.1&lt;/version&gt;</span><br><span class="line">&lt;/plugin&gt;</span><br></pre></td></tr></table></figure>
 
-<p>2、No qualifying bean of type ‘org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter’</p>
-<p>解决方案：</p>
+<h3 id="No-qualifying-bean-of-type-‘org-springframework-web-servlet-mvc-method-annotation-RequestMappingHandlerAdapter’"><a href="#No-qualifying-bean-of-type-‘org-springframework-web-servlet-mvc-method-annotation-RequestMappingHandlerAdapter’" class="headerlink" title="No qualifying bean of type ‘org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter’"></a>No qualifying bean of type ‘org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter’</h3><p>解决方案：</p>
 <p>引入SpringBoot时候缺web板块，添加以下依赖：</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
 
@@ -313,11 +327,11 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/08/26/记SVN的小插曲——删除文件夹下的.svn文件/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/08/26/栈/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          记SVN的小插曲——删除文件夹下的.svn文件
+          栈
         
       </div>
     </a>
@@ -351,7 +365,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#主要内容："><span class="toc-number">1.</span> <span class="toc-text">主要内容：</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Maven-问题汇总"><span class="toc-number"></span> <span class="toc-text">Maven 问题汇总</span></a>
+                    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#主要内容："><span class="toc-number">1.</span> <span class="toc-text">主要内容：</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Maven-问题汇总"><span class="toc-number"></span> <span class="toc-text">Maven 问题汇总</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#elasticsearch异常-NoSuchMethodError-org-jboss-netty-channel-socket-nio-NioWo"><span class="toc-number"></span> <span class="toc-text">elasticsearch异常:NoSuchMethodError:org.jboss.netty.channel.socket.nio.NioWo</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Maven项目打包"><span class="toc-number"></span> <span class="toc-text">Maven项目打包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SpringBoot项目打jar部署包流程："><span class="toc-number"></span> <span class="toc-text">SpringBoot项目打jar部署包流程：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#install报错：plugin-gt-org-apache-maven-plugins-maven-compiler-plugin-3-1"><span class="toc-number"></span> <span class="toc-text">install报错：plugin&gt;org.apache.maven.plugins:maven-compiler-plugin:3.1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#No-qualifying-bean-of-type-‘org-springframework-web-servlet-mvc-method-annotation-RequestMappingHandlerAdapter’"><span class="toc-number"></span> <span class="toc-text">No qualifying bean of type ‘org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter’</span></a>
                     </div>
                 </span>
             </div>
@@ -559,6 +573,18 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Maven</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">elk</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">项目问题</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
               </li>
             
             <div class="clearfix"></div>
